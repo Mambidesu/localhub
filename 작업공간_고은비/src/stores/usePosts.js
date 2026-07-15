@@ -147,10 +147,75 @@ export function usePosts() {
 
   function sendChatMessage(text) {
     state.chatMessages.push({ id: Date.now(), author: 'user', text });
-    setTimeout(() => {
-      const answer = buildTravelRecommendation(text);
-      state.chatMessages.push({ id: Date.now() + 1, author: 'bot', text: answer });
-    }, 600);
+
+    // show typing indicator
+    const typingId = Date.now() + 1;
+    state.chatMessages.push({ id: typingId, author: 'bot', text: '응답 생성 중입니다...' });
+
+    // Try OpenAI first, fallback to local rules
+    callOpenAI(text)
+      .then(answer => {
+        const idx = state.chatMessages.findIndex(m => m.id === typingId);
+        if (idx !== -1) state.chatMessages.splice(idx, 1);
+        state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: answer });
+      })
+      .catch(err => {
+        const idx = state.chatMessages.findIndex(m => m.id === typingId);
+        if (idx !== -1) state.chatMessages.splice(idx, 1);
+        const fallback = buildTravelRecommendation(text) + '\n\n(참고: OpenAI 호출에 실패해 로컬 데이터 기반 응답을 제공했습니다.)';
+        state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: fallback });
+        console.error('OpenAI error:', err);
+      });
+  }
+
+  async function callOpenAI(userText) {
+    try {
+      const key = import.meta.env.VITE_OPENAI_KEY;
+      if (!key) throw new Error('OpenAI API key is not configured (VITE_OPENAI_KEY).');
+
+      const buildContext = (items) => (items || []).slice(0, 30).map(i => `${i.title}: ${i.addr || i.overview || ''}`).join('\n');
+      const contextParts = [
+        '관광지:\n' + buildContext(tourismData.items),
+        '레포츠:\n' + buildContext(sportsData.items),
+        '문화시설:\n' + buildContext(cultureData.items),
+        '쇼핑:\n' + buildContext(shoppingData.items),
+        '숙박:\n' + buildContext(lodgingData.items),
+        '여행코스:\n' + buildContext(courseData.items),
+        '맛집:\n' + buildContext(foodData.items)
+      ].join('\n\n');
+
+      const systemPrompt = `당신은 광주·전라권 지역 안내 챗봇입니다. 아래 제공된 데이터(제목과 간단 설명)를 우선 참고하여 질문에 답하세요. 사용 가능한 질의 유형 예: 권역별 관광지 추천, 축제 일정, 모범음식점 위치, 데이트 코스 추천, 커뮤니티 게시글 검색, 특산물 파는 맛집 추천, 이색 숙소 추천. 모르는 내용은 추측하지 말고 "해당 정보가 없습니다"고 알려주세요. 데이터 요약:\n${contextParts}`;
+
+      const payload = {
+        model: 'gpt-3.5-turbo',
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userText }
+        ],
+        max_tokens: 600,
+        temperature: 0.6
+      };
+
+      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${key}`
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(`OpenAI API error: ${res.status} ${errText}`);
+      }
+
+      const data = await res.json();
+      const reply = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+      return reply || '죄송합니다. 답변을 생성하지 못했습니다.';
+    } catch (e) {
+      throw e;
+    }
   }
 
   function buildTravelRecommendation(text) {

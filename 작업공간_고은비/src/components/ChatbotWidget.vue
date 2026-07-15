@@ -10,11 +10,11 @@
         <span class="chatbot-title">가야Ging 챗봇</span>
         <button @click="toggleChat" class="chatbot-close" aria-label="챗봇 닫기">✕</button>
       </div>
-      <div class="chatbot-body">
-        <div v-for="message in messages" :key="message.id" :class="['chatbot-message', message.author]">
-          {{ message.text }}
-        </div>
-      </div>
+          <div class="chatbot-body" ref="bodyRef">
+            <div v-for="message in messages" :key="message.id" :class="['chatbot-message', message.author]">
+              {{ message.text }}
+            </div>
+          </div>
       <div class="chatbot-footer">
         <input type="text" v-model="draft" placeholder="메시지를 입력하세요" @keyup.enter="sendMessage" />
         <button @click="sendMessage" class="primary">전송</button>
@@ -29,9 +29,17 @@ import { usePosts } from '../stores/usePosts';
 
 const { state, sendChatMessage, toggleChat } = usePosts();
 const draft = ref('');
+import { ref as vueRef, watch, nextTick } from 'vue';
 
+const bodyRef = vueRef(null);
 const isOpen = computed(() => state.isChatOpen);
 const messages = computed(() => state.chatMessages);
+
+watch(messages, async () => {
+  await nextTick();
+  const el = bodyRef.value;
+  if (el) el.scrollTop = el.scrollHeight;
+});
 
 function sendMessage() {
   if (!draft.value.trim()) return;
@@ -162,6 +170,14 @@ function sendMessage() {
   padding: 10px 12px;
   border-radius: 999px;
   border: 1px solid #e6efe6;
+}
+
+.chatbot-footer .primary {
+  background: var(--menu-bg);
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 999px;
 }
 
 </style>

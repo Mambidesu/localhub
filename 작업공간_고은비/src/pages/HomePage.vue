@@ -7,7 +7,7 @@
         <div>
           <strong>주요 기능</strong>
         </div>
-        <button class="primary" @click="goPlanner">내 일정 관리</button>
+        <button class="primary" @click="goPlanner">내 여행 일정 관리</button>
       </div>
     </div>
 

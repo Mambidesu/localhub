@@ -2,7 +2,10 @@
   <section>
     <div class="list-header">
       <h1 class="page-title">여행 일정 생성/관리</h1>
-      <button class="primary" @click="addDay">Day 추가</button>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="primary" @click="downloadPlan">일정 다운로드</button>
+        <button class="primary" @click="addDay">Day 추가</button>
+      </div>
     </div>
 
     <div class="trip-card">
@@ -48,6 +51,7 @@
 
 <script setup>
 import { reactive, ref } from 'vue';
+import * as XLSX from 'xlsx';
 
 const tripTitle = ref('광주 여행 일정');
 const itinerary = reactive([
@@ -108,6 +112,29 @@ function removeSchedule(dayId, itemId) {
 
 function savePlan() {
   alert('일정이 저장되었습니다. (브라우저 메모리 내 저장)');
+}
+
+async function downloadPlan() {
+  // Build rows matching the provided 양식: 첫 행에 제목/메타, 이후 Day/Time/Place/Note 형식
+  const rows = [];
+  // Header info
+  rows.push(['여행 제목', tripTitle.value]);
+  rows.push([]);
+  // Table header
+  rows.push(['Day', '시간', '장소', '메모']);
+
+  itinerary.forEach(day => {
+    day.items.forEach(item => {
+      rows.push([`Day ${day.day}`, item.time || '', item.place || '', item.hasMemo ? item.note || '' : '']);
+    });
+  });
+
+  const ws = XLSX.utils.aoa_to_sheet(rows);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '일정표');
+
+  const fileName = `${tripTitle.value || '여행일정'}.xlsx`;
+  XLSX.writeFile(wb, fileName);
 }
 
 function clearPlan() {

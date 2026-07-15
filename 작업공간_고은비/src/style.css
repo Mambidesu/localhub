@@ -3,11 +3,19 @@
 }
 
 :root {
-  /* 로고 바탕 색상(연한 크림)과 메뉴/버튼 색상 변수 */
-  --header-bg-start: #fffdf9;
-  --header-bg-end: #f7fbf6;
-  --menu-bg: #0055a5;        /* 기존 button.primary */
-  --menu-bg-hover: #0071c2;  /* 호버 시 약간 밝게 */
+  /* 로고 기반 테마 변수 (배경 / 브랜드 색) */
+  --page-bg: #fbf8f3; /* 화면 전체 바탕(로고 바탕색 계열) */
+  --header-bg-start: #fbf8f3;
+  --header-bg-end: #f7f4ee;
+
+  --brand-green: #3b6a3d;
+  --brand-green-dark: #2f6b3a;
+  --accent-orange: #f5a22a;
+  --brand-brown: #2b2318;
+
+  /* 메뉴/버튼 색상 (브랜드 그린 사용) */
+  --menu-bg: var(--brand-green);
+  --menu-bg-hover: #2e8550;
 }
 
 body {
@@ -38,8 +46,8 @@ textarea {
 
 /* 헤더 배경을 로고 바탕색 계열로 변경 */
 .app-header {
-  background: linear-gradient(180deg, var(--header-bg-start), var(--header-bg-end));
-  color: #2f6b3a; /* 기존 텍스트 색 유지(원하면 바꾸세요) */
+  background: linear-gradient(90deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+  color: var(--brand-green-dark);
   padding: 18px 24px;
 }
 
@@ -116,7 +124,8 @@ nav.menu-links {
 
 .banner-card {
   width: 100%;
-  background: linear-gradient(135deg, #245897, #85c1ff);
+  /* 그라데이션은 유지하되 색상은 내 일정 관리 버튼과 비슷한 채도의 더 어두운 그린 계열로 변경 */
+  background: linear-gradient(135deg, var(--banner-start), var(--banner-end));
   color: white;
   border-radius: 20px;
   padding: 36px 30px;
@@ -169,8 +178,11 @@ button.secondary {
 }
 
 button.primary {
-  background: #0055a5;
-  color: white;
+  /* 배경을 logo.png 바탕색으로 변경, 글씨는 배너보다 더 진한 녹색으로 */
+  background: var(--page-bg);
+  color: var(--button-text-green);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06) inset;
+  border: 1px solid rgba(0,0,0,0.06);
 }
 
 button.secondary {
@@ -334,9 +346,9 @@ textarea {
 }
 
 .page-button.active {
-  background: #0055a5;
+  background: var(--menu-bg);
   color: white;
-  border-color: #0055a5;
+  border-color: var(--menu-bg);
 }
 
 .chatbot-float {
@@ -354,7 +366,7 @@ textarea {
   height: 62px;
   border-radius: 50%;
   border: none;
-  background: #0055a5;
+  background: var(--menu-bg);
   color: white;
   font-size: 1.5rem;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
@@ -374,7 +386,7 @@ textarea {
 
 .chatbot-header {
   padding: 16px 18px;
-  background: #0055a5;
+  background: var(--menu-bg);
   color: white;
   display: flex;
   justify-content: space-between;

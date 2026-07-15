@@ -1,7 +1,26 @@
-/* theme.css: 기본 테마 변수 (빈 파일로도 됨) */
+/* theme.css: 로고 색상에 맞춘 테마 변수 */
 :root {
-  --header-bg-start: #fffdf9;
-  --header-bg-end: #f7fbf6;
-  --menu-bg: #0055a5;
-  --menu-bg-hover: #0071c2;
+  /* 배경 / 전체톤 (로고 바탕의 연한 크림) */
+  --page-bg: #fbf8f3;
+  --header-bg-start: #fbf8f3;
+  --header-bg-end: #f7f4ee;
+
+  /* 브랜드 색상 (로고의 녹색/말풍선 색) */
+  --brand-green: #3b6a3d;
+  --brand-green-dark: #2f6b3a;
+
+  /* 포인트 (해/하이라이트) */
+  --accent-orange: #f5a22a;
+
+  /* 텍스트/타이포 색상 */
+  --brand-brown: #2b2318;
+
+  /* 메뉴/버튼 색상 (브랜드 그린을 기본으로 사용) */
+  --menu-bg: var(--brand-green);
+  --menu-bg-hover: #2e8550;
+  /* 버튼 텍스트(글씨) — 배너보다 더 진한 녹색 */
+  --button-text-green: #1f4d2c;
+  /* 배너 그라데이션: '내 일정 관리' 버튼 색과 채도가 비슷하되 더 어두운 톤 */
+  --banner-start: #2b5a33; /* 다크한 시작색 */
+  --banner-end: #34693a;   /* 다크한 끝색(약간 밝음) */
 }
