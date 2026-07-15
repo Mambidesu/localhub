@@ -97,6 +97,66 @@ export function usePosts() {
       })
       .slice(0, 5);
   });
+
+  // Helper maps for category keyword detection
+  const categoryKeywordsMap = {
+    '관광지': ['관광', '관광지', '명소', '여행지', '가볼만한곳'],
+    '레포츠': ['레포츠', '액티비티', '캠핑', '체험'],
+    '문화시설': ['문화', '전시', '공연', '문화시설'],
+    '쇼핑': ['쇼핑', '시장', '구매', '기념품'],
+    '숙박': ['숙박', '호텔', '게스트하우스', '숙소'],
+    '여행코스': ['코스', '여행코스', '루트', '일정'],
+    '맛집': ['맛집', '음식', '식당', '먹거리']
+  };
+
+  const datasetMap = {
+    '관광지': tourismData,
+    '레포츠': sportsData,
+    '문화시설': cultureData,
+    '쇼핑': shoppingData,
+    '숙박': lodgingData,
+    '여행코스': courseData,
+    '맛집': foodData
+  };
+
+  function detectCategory(text) {
+    const lower = text.toLowerCase();
+    for (const [cat, keys] of Object.entries(categoryKeywordsMap)) {
+      if (keys.some(k => lower.includes(k))) return cat;
+    }
+    return null;
+  }
+
+  function isBoardQuery(text) {
+    const lower = text.toLowerCase();
+    return ['게시판', '게시글', '글', '포스트', '게시물', '검색'].some(k => lower.includes(k));
+  }
+
+  // Generate a natural language reply from local JSON dataset for a given category
+  function generateLocalReply(text, category) {
+    const dataset = datasetMap[category];
+    if (!dataset || !dataset.items || dataset.items.length === 0) return null;
+
+    // Try to find items that match keywords in the question
+    const lower = text.toLowerCase();
+    const matches = dataset.items.filter(it => {
+      const combined = ((it.title || '') + ' ' + (it.overview || '') + ' ' + (it.addr || '')).toLowerCase();
+      return lower.split(/\s+/).some(tok => tok && combined.includes(tok));
+    });
+
+    const pick = (matches.length ? matches : dataset.items).slice(0, 5);
+
+    // Build a friendly natural-language response
+    const lines = [];
+    lines.push(`${category} 관련 추천을 알려드릴게요:`);
+    pick.forEach((it, idx) => {
+      const title = it.title || it.name || `항목 ${idx+1}`;
+      const brief = it.overview || it.addr || '';
+      lines.push(`${idx+1}. ${title}${brief ? ' — ' + brief.slice(0, 80) : ''}`);
+    });
+    lines.push('더 원하시면 지역이나 테마(예: 가족, 데이트, 가성비 등)를 알려주세요.');
+    return lines.join('\n');
+  }
   const categoryPosts = computed(() => {
     return [...state.posts]
       .filter(post => post.category === state.selectedCategory)
@@ -145,14 +205,84 @@ export function usePosts() {
     }
   }
 
-  function sendChatMessage(text) {
+  async function sendChatMessage(text) {
     state.chatMessages.push({ id: Date.now(), author: 'user', text });
 
     // show typing indicator
     const typingId = Date.now() + 1;
     state.chatMessages.push({ id: typingId, author: 'bot', text: '응답 생성 중입니다...' });
 
-    // Try OpenAI first, fallback to local rules
+    // Pre-process: if question targets a local category or board, provide that context to the model
+    const category = detectCategory(text);
+    const isBoard = isBoardQuery(text);
+
+    if (category) {
+      // First, generate a local reply from JSON data and return it immediately
+      const localReply = generateLocalReply(text, category);
+      if (localReply) {
+        const idx = state.chatMessages.findIndex(m => m.id === typingId);
+        if (idx !== -1) state.chatMessages.splice(idx, 1);
+        state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: localReply });
+        return;
+      }
+
+      // If no local data, try to augment with web search results from server proxy and call OpenAI
+      const dataset = datasetMap[category];
+      const items = (dataset && dataset.items) ? dataset.items.slice(0, 10).map(i => i.title) : [];
+      // Try to augment with web search results from server proxy
+      let webResults = [];
+      try {
+        const resp = await fetch('/api/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ q: `${category} ${text}`, num: 5 }) });
+        if (resp.ok) {
+          const j = await resp.json();
+          const results = j.results || [];
+          webResults = results.map(r => ({ title: r.title, snippet: r.snippet, link: r.link, domain: r.domain, rank: r.rank }));
+          // create a readable searchList for system prompt
+          // format: 1) title (domain) - snippet - link
+        }
+      } catch (e) {
+        console.warn('Search proxy failed', e);
+      }
+
+      const contextList = items.join(', ');
+      const searchList = (webResults || []).map(r => `${r.rank}. ${r.title} (${r.domain}) - ${r.snippet} ${r.link || ''}`).join('\n');
+      const system = `당신은 광주·전라권 안내 챗봇입니다. 사용자가 ${category} 관련 질의를 했습니다. 아래는 앱 내부 ${category} 목록(간단): ${contextList}. 추가로 웹에서 관련 정보(스니펫)를 참고하세요:\n${searchList}\n위 정보들을 참고해 질문에 맞는 추천을 간결하게 작성해주세요.`;
+      callOpenAI(text, system)
+        .then(answer => {
+          const idx = state.chatMessages.findIndex(m => m.id === typingId);
+          if (idx !== -1) state.chatMessages.splice(idx, 1);
+          state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: answer });
+        })
+        .catch(err => {
+          const idx = state.chatMessages.findIndex(m => m.id === typingId);
+          if (idx !== -1) state.chatMessages.splice(idx, 1);
+          const fallback = buildTravelRecommendation(text) + '\n\n(참고: OpenAI 호출에 실패해 로컬 데이터 기반 응답을 제공합니다.)';
+          state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: fallback });
+          console.error('OpenAI error:', err);
+        });
+      return;
+    }
+
+    if (isBoard) {
+      const postsSample = state.posts.slice(-10).map(p => `${p.title}: ${p.body.slice(0,60)}`).join('\n');
+      const system = `당신은 커뮤니티 게시글 검색 챗봇입니다. 아래는 최근 게시글(제목:요약)입니다:\n${postsSample}\n사용자의 질문에 맞춰 관련 게시글을 요약하거나 안내해 주세요.`;
+      callOpenAI(text, system)
+        .then(answer => {
+          const idx = state.chatMessages.findIndex(m => m.id === typingId);
+          if (idx !== -1) state.chatMessages.splice(idx, 1);
+          state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: answer });
+        })
+        .catch(err => {
+          const idx = state.chatMessages.findIndex(m => m.id === typingId);
+          if (idx !== -1) state.chatMessages.splice(idx, 1);
+          const fallback = '해당 게시글을 찾지 못했습니다. 게시글 제목 또는 키워드를 알려주시면 검색해 드릴게요.';
+          state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: fallback });
+          console.error('OpenAI error:', err);
+        });
+      return;
+    }
+
+    // Default: call OpenAI normally
     callOpenAI(text)
       .then(answer => {
         const idx = state.chatMessages.findIndex(m => m.id === typingId);
@@ -162,13 +292,13 @@ export function usePosts() {
       .catch(err => {
         const idx = state.chatMessages.findIndex(m => m.id === typingId);
         if (idx !== -1) state.chatMessages.splice(idx, 1);
-        const fallback = buildTravelRecommendation(text) + '\n\n(참고: OpenAI 호출에 실패해 로컬 데이터 기반 응답을 제공했습니다.)';
+        const fallback = `제가 이해하기 어려워요. 예: 관광지·맛집·숙박·여행코스 중 무엇을 찾으시나요?`;
         state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: fallback });
         console.error('OpenAI error:', err);
       });
   }
 
-  async function callOpenAI(userText) {
+  async function callOpenAI(userText, systemOverride = null) {
     try {
       const key = import.meta.env.VITE_OPENAI_KEY;
       if (!key) throw new Error('OpenAI API key is not configured (VITE_OPENAI_KEY).');
@@ -185,7 +315,9 @@ export function usePosts() {
         '맛집:\n' + buildContext(foodData.items)
       ].join('\n\n');
 
-      const systemPrompt = `당신은 광주·전라권 지역 안내 챗봇입니다. 아래 제공된 데이터(주요 명칭)를 참고하여 간결하게 질문에 답하세요. 가능한 질의 유형 예: 권역별 관광지 추천, 축제 일정, 모범음식점 위치, 데이트 코스 추천, 커뮤니티 게시글 검색, 특산물 판매 맛집 추천, 이색 숙소 추천. 모르는 내용은 추측하지 말고 "해당 정보가 없습니다"라고 말하세요. 데이터 요약:\n${contextParts}`;
+
+      const defaultSystemPrompt = `당신은 광주·전라권 지역 안내 챗봇입니다. 아래 제공된 데이터(주요 명칭)를 참고하여 간결하게 질문에 답하세요. 가능한 질의 유형 예: 권역별 관광지 추천, 축제 일정, 모범음식점 위치, 데이트 코스 추천, 커뮤니티 게시글 검색, 특산물 판매 맛집 추천, 이색 숙소 추천. 모르는 내용은 추측하지 말고 "해당 정보가 없습니다"라고 말하세요. 데이터 요약:\n${contextParts}`;
+      const systemPrompt = systemOverride || defaultSystemPrompt;
 
       const payload = {
         model: 'gpt-5-mini',
@@ -218,11 +350,43 @@ export function usePosts() {
       }
 
       const data = JSON.parse(resText);
-      const reply = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-      // If model returned empty content, fallback to local rule-based response
+      let reply = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+
+      // If model returned empty content, try one formatted retry with stricter instruction
       if (!reply || !reply.toString().trim()) {
-        return buildTravelRecommendation(userText) + '\n\n(참고: 모델 응답이 비어있어 로컬 데이터 기반 응답을 제공합니다.)';
+        console.warn('Empty reply, attempting one formatted retry');
+        const retrySystem = systemOverride || (`당신은 광주·전라권 안내 챗봇입니다. 아래 제공된 데이터와 웹 스니펫을 참고해, 요청에 대해 최대 5개의 항목을 "번호. 이름 — 한 줄 설명" 형식으로 간결하게 출력하세요. 예외적인 정보는 추측하지 말고 "해당 정보가 없습니다"라고 적으세요.`);
+        const retryPayload = {
+          model: payload.model,
+          messages: [
+            { role: 'system', content: retrySystem },
+            { role: 'user', content: userText }
+          ],
+          max_completion_tokens: 300,
+          temperature: 1
+        };
+        const r2 = await fetch('https://api.openai.com/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${key}`
+          },
+          body: JSON.stringify(retryPayload)
+        });
+        console.log('Retry OpenAI request sent. Status:', r2.status);
+        const r2Text = await r2.text();
+        console.log('Retry OpenAI response body:', r2Text);
+        if (r2.ok) {
+          const r2Data = JSON.parse(r2Text);
+          reply = r2Data.choices && r2Data.choices[0] && r2Data.choices[0].message && r2Data.choices[0].message.content;
+        }
       }
+
+      // Final fallback to local response if still empty
+      if (!reply || !reply.toString().trim()) {
+        return buildTravelRecommendation(userText) + '\n\n(참고: 모델 응답이 비어 있어 로컬 데이터 기반 응답을 제공합니다.)';
+      }
+
       return reply;
     } catch (e) {
       throw e;
