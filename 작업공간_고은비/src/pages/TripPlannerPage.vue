@@ -2,7 +2,7 @@
   <section>
     <div class="list-header">
       <h1 class="page-title">여행 일정 생성/관리</h1>
-      <button class="primary" @click="addDay">일정 추가</button>
+      <button class="primary" @click="addDay">Day 추가</button>
     </div>
 
     <div class="trip-card">
@@ -10,22 +10,34 @@
         <label>여행 제목</label>
         <input type="text" v-model="tripTitle" placeholder="여행 제목을 입력하세요" />
       </div>
+
       <div class="trip-list">
-        <article v-for="item in itinerary" :key="item.id" class="trip-item">
+        <article v-for="day in itinerary" :key="day.id" class="trip-item">
           <header>
-            <strong>Day {{ item.day }}</strong>
-            <button class="secondary" @click="removeDay(item.id)">삭제</button>
+            <strong>Day {{ day.day }}</strong>
+            <div class="day-actions">
+              <button class="secondary" @click="addSchedule(day.id)">항목 추가</button>
+              <button class="secondary" @click="removeDay(day.id)">삭제</button>
+            </div>
           </header>
-          <div class="form-group">
-            <label>장소</label>
-            <input type="text" v-model="item.location" placeholder="장소를 입력하세요" />
-          </div>
-          <div class="form-group">
-            <label>메모</label>
-            <textarea v-model="item.note" placeholder="메모를 입력하세요"></textarea>
+
+          <div v-for="item in day.items" :key="item.id" class="schedule-block">
+            <div class="schedule-row">
+              <input v-model="item.time" type="text" placeholder="예: 09:00" />
+              <input v-model="item.place" type="text" placeholder="장소를 입력하세요" />
+              <button class="secondary" @click="removeSchedule(day.id, item.id)">삭제</button>
+            </div>
+            <div class="memo-toggle">
+              <label>
+                <input type="checkbox" v-model="item.hasMemo" />
+                메모 추가
+              </label>
+            </div>
+            <textarea v-if="item.hasMemo" v-model="item.note" class="memo-input" placeholder="메모를 입력하세요"></textarea>
           </div>
         </article>
       </div>
+
       <div class="page-actions">
         <button class="primary" @click="savePlan">저장</button>
         <button class="secondary" @click="clearPlan">초기화</button>
@@ -38,15 +50,48 @@
 import { reactive, ref } from 'vue';
 
 const tripTitle = ref('광주 여행 일정');
-const itinerary = reactive([{
-  id: 1,
-  day: 1,
-  location: '황리단길',
-  note: '문화공간과 카페가 모여 있는 인기 거리'
-}]);
+const itinerary = reactive([
+  {
+    id: 1,
+    day: 1,
+    items: [
+      {
+        id: Date.now(),
+        time: '09:00',
+        place: '황리단길',
+        hasMemo: true,
+        note: '문화공간과 카페가 모여 있는 인기 거리'
+      }
+    ]
+  }
+]);
 
 function addDay() {
-  itinerary.push({ id: Date.now(), day: itinerary.length + 1, location: '', note: '' });
+  itinerary.push({
+    id: Date.now(),
+    day: itinerary.length + 1,
+    items: [
+      {
+        id: Date.now() + Math.random(),
+        time: '',
+        place: '',
+        hasMemo: false,
+        note: ''
+      }
+    ]
+  });
+}
+
+function addSchedule(dayId) {
+  const day = itinerary.find(item => item.id === dayId);
+  if (!day) return;
+  day.items.push({
+    id: Date.now() + Math.random(),
+    time: '',
+    place: '',
+    hasMemo: false,
+    note: ''
+  });
 }
 
 function removeDay(id) {
@@ -55,13 +100,31 @@ function removeDay(id) {
   itinerary.forEach((item, idx) => item.day = idx + 1);
 }
 
+function removeSchedule(dayId, itemId) {
+  const day = itinerary.find(item => item.id === dayId);
+  if (!day) return;
+  day.items = day.items.filter(item => item.id !== itemId);
+}
+
 function savePlan() {
   alert('일정이 저장되었습니다. (브라우저 메모리 내 저장)');
 }
 
 function clearPlan() {
   itinerary.splice(0, itinerary.length);
-  itinerary.push({ id: 1, day: 1, location: '', note: '' });
+  itinerary.push({
+    id: 1,
+    day: 1,
+    items: [
+      {
+        id: Date.now(),
+        time: '',
+        place: '',
+        hasMemo: false,
+        note: ''
+      }
+    ]
+  });
   tripTitle.value = '광주 여행 일정';
 }
 </script>

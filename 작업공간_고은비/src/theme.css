@@ -1,0 +1,7 @@
+/* theme.css: 기본 테마 변수 (빈 파일로도 됨) */
+:root {
+  --header-bg-start: #fffdf9;
+  --header-bg-end: #f7fbf6;
+  --menu-bg: #0055a5;
+  --menu-bg-hover: #0071c2;
+}

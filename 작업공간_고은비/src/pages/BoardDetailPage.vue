@@ -9,10 +9,10 @@
     </div>
 
     <div class="card" v-if="post">
+      <div class="post-meta">작성일: {{ post.createdAt }}</div>
       <p>{{ post.body }}</p>
-      <div class="meta">
-        <span>작성자: {{ post.author }}</span>
-        <span>작성일: {{ post.createdAt }}</span>
+      <div class="post-footer">
+        <button class="secondary" @click="goList">목록으로</button>
       </div>
     </div>
 
@@ -53,6 +53,10 @@ function prepareEdit() {
 function prepareDelete() {
   actionType.value = 'delete';
   confirmModalOpen.value = true;
+}
+
+function goList() {
+  router.push({ name: 'board-list', params: { category: post.category } });
 }
 
 function cancelAction() {

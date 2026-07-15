@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="list-header">
-      <h1 class="page-title">{{ category }} 게시판</h1>
+      <h1 class="page-title">{{ pageTitle }}</h1>
       <button class="primary" @click="goWrite">글쓰기</button>
     </div>
 
@@ -18,7 +18,7 @@
           </thead>
           <tbody>
             <tr v-for="post in displayPosts" :key="post.id" @click="viewPost(post)">
-              <td>{{ post.id }}</td>
+              <td>{{ post.displayId }}</td>
               <td>{{ post.title }}</td>
               <td>{{ post.category }}</td>
               <td>{{ post.createdAt }}</td>
@@ -43,25 +43,40 @@ const route = useRoute();
 const { categories, state, selectCategory, categoryPosts } = usePosts();
 const currentPage = ref(1);
 const perPage = 5;
-const category = route.params.category || '관광지';
+const categoryTitleMap = {
+  관광지: '관광지 게시판',
+  레포츠: '레포츠 게시판',
+  문화시설: '문화시설 게시판',
+  쇼핑: '쇼핑 게시판',
+  숙박: '숙박 게시판',
+  여행코스: '여행코스 게시판',
+  맛집: '맛집 게시판'
+};
+const category = computed(() => route.params.category || '관광지');
+const pageTitle = computed(() => categoryTitleMap[category.value] || `${category.value} 게시판`);
 
-selectCategory(category);
+selectCategory(category.value);
 
-watch(route, () => {
-  selectCategory(route.params.category || '관광지');
+watch(() => route.params.category, () => {
+  selectCategory(category.value);
   currentPage.value = 1;
 });
 
 const displayPosts = computed(() => {
   const posts = categoryPosts.value;
   const start = (currentPage.value - 1) * perPage;
-  return posts.slice(start, start + perPage);
+  return posts
+    .map((post, index) => ({
+      ...post,
+      displayId: index + 1
+    }))
+    .slice(start, start + perPage);
 });
 
 const totalPages = computed(() => Math.max(1, Math.ceil(categoryPosts.value.length / perPage)));
 
 function goWrite() {
-  router.push({ name: 'board-write', params: { category } });
+  router.push({ name: 'board-write', params: { category: category.value } });
 }
 
 function viewPost(post) {

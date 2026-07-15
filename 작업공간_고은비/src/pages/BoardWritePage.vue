@@ -6,6 +6,12 @@
 
     <div class="card">
       <div class="form-group">
+        <label>카테고리</label>
+        <select v-model="form.category">
+          <option v-for="category in categories" :key="category" :value="category">{{ category }}</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label>제목</label>
         <input type="text" v-model="form.title" placeholder="제목을 입력하세요" />
       </div>
@@ -32,12 +38,13 @@ import { usePosts } from '../stores/usePosts';
 
 const router = useRouter();
 const route = useRoute();
-const { getPost, addPost, updatePost } = usePosts();
+const { getPost, addPost, updatePost, categories } = usePosts();
 const isEdit = computed(() => Boolean(route.params.id));
 
 const existing = isEdit.value ? getPost(route.params.id) : null;
 
 const form = reactive({
+  category: existing?.category || route.params.category || '관광지',
   title: existing?.title || '',
   body: existing?.body || '',
   password: ''
@@ -54,11 +61,11 @@ function submitForm() {
       alert('비밀번호가 올바르지 않습니다.');
       return;
     }
-    updatePost(route.params.id, { title: form.title, body: form.body });
-    router.push({ name: 'board-detail', params: { category: route.params.category, id: route.params.id } });
+    updatePost(route.params.id, { category: form.category, title: form.title, body: form.body });
+    router.push({ name: 'board-detail', params: { category: form.category, id: route.params.id } });
   } else {
-    addPost({ category: route.params.category, title: form.title, body: form.body });
-    router.push({ name: 'board-list', params: { category: route.params.category } });
+    addPost({ category: form.category, title: form.title, body: form.body });
+    router.push({ name: 'board-list', params: { category: form.category } });
   }
 }
 
@@ -66,7 +73,7 @@ function cancelForm() {
   if (isEdit.value) {
     router.back();
   } else {
-    router.push({ name: 'board-list', params: { category: route.params.category } });
+    router.push({ name: 'board-list', params: { category: form.category } });
   }
 }
 </script>

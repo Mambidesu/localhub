@@ -2,10 +2,12 @@
   <div class="app-shell">
     <header class="app-header">
       <div class="header-inner">
-        <div>
-          <h1>LocalHub</h1>
-          <p class="tagline">광주 지역 주민과 관광객을 위한 익명 커뮤니티</p>
-        </div>
+        <RouterLink to="/" class="logo-link">
+          <img src="/logo.png" alt="가야Ging" class="logo-image" />
+          <div class="logo-text">
+            <strong>가야</strong><span>Ging</span>
+          </div>
+        </RouterLink>
         <nav class="menu-links">
           <RouterLink v-for="item in topMenu" :key="item.label" :to="item.to" class="menu-link" :class="{ active: item.active }">
             {{ item.label }}
@@ -30,7 +32,6 @@ import ChatbotWidget from './components/ChatbotWidget.vue';
 const route = useRoute();
 
 const topMenu = computed(() => [
-  { label: '내 일정 관리', to: '/planner', active: route.path === '/planner' },
   { label: '관광지', to: '/board/관광지', active: route.params.category === '관광지' && route.name === 'board-list' },
   { label: '레포츠', to: '/board/레포츠', active: route.params.category === '레포츠' && route.name === 'board-list' },
   { label: '문화시설', to: '/board/문화시설', active: route.params.category === '문화시설' && route.name === 'board-list' },
