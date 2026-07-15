@@ -95,6 +95,10 @@ nav.menu-links {
 }
 
 /* 호버 / 활성 상태 */
+.weather-button {
+  cursor: pointer;
+}
+
 .menu-link:hover,
 .menu-link.active {
   background: var(--menu-bg-hover);
@@ -439,6 +443,63 @@ textarea {
   padding: 18px;
 }
 
+.weather-planner-card {
+  display: grid;
+  gap: 16px;
+}
+
+.weather-planner-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eef7ff, #f9fcff);
+}
+
+.weather-planner-summary h3 {
+  margin: 0 0 4px;
+}
+
+.weather-planner-summary p {
+  margin: 0;
+  color: #5e6b84;
+}
+
+.weather-planner-badge {
+  font-size: 2rem;
+}
+
+.weather-mini-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.weather-mini-cell {
+  padding: 8px 6px;
+  border-radius: 12px;
+  background: #f8fbff;
+  border: 1px solid #e2eaf7;
+  text-align: center;
+}
+
+.weather-mini-day {
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.weather-mini-icon {
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+.weather-mini-label {
+  font-size: 0.78rem;
+  color: #5d7089;
+}
+
 .trip-card h4 {
   margin-top: 0;
 }
@@ -468,51 +529,172 @@ textarea {
   margin: 0;
 }
 
-.example-list {
+    .example-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .example-chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f3f7ff;
+      color: #245897;
+    }
+
+    .day-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .schedule-block {
+      display: grid;
+      gap: 8px;
+      padding: 10px 0;
+      border-top: 1px dashed #dce6f4;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .memo-toggle {
+      font-size: 0.95rem;
+      color: #53657f;
+    }
+
+    .memo-input {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    @media (max-width: 720px) {
+      .schedule-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .weather-modal {
+      width: min(720px, calc(100% - 32px));
+      display: grid;
+      gap: 18px;
+    }
+
+    .weather-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .weather-header h4 {
+      margin: 0 0 4px;
+    }
+
+    .weather-header p {
+      margin: 0;
+      color: #5e6c85;
+    }
+
+    .weather-loading {
+      padding: 20px;
+      border-radius: 16px;
+      background: #f6f9ff;
+      color: #44608a;
+    }
+
+    .weather-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #eef7ff, #f8fbff);
+    }
+
+.weather-main {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.example-chip {
-  padding: 8px 12px;
-  border-radius: 999px;
-  background: #f3f7ff;
-  color: #245897;
-}
-
-.day-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.schedule-block {
-  display: grid;
-  gap: 8px;
-  padding: 10px 0;
-  border-top: 1px dashed #dce6f4;
-}
-
-.schedule-row {
-  display: grid;
-  grid-template-columns: 90px 1fr auto;
-  gap: 8px;
+  gap: 14px;
   align-items: center;
 }
 
-.memo-toggle {
-  font-size: 0.95rem;
-  color: #53657f;
+.weather-icon-large {
+  font-size: 2.2rem;
 }
 
-.memo-input {
-  min-height: 90px;
-  resize: vertical;
+.weather-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.weather-desc {
+  margin: 4px 0 0;
+  color: #5e6c85;
+}
+
+.weather-link {
+  color: #0055a5;
+  font-weight: 700;
+}
+
+.weather-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.weekday-cell,
+.day-cell {
+  border-radius: 12px;
+  padding: 10px 8px;
+  min-height: 80px;
+  text-align: center;
+  background: #f8fbff;
+  border: 1px solid #e3eaf7;
+}
+
+.weekday-cell {
+  min-height: auto;
+  font-weight: 700;
+  background: #eef4ff;
+}
+
+.day-cell.muted {
+  opacity: 0.45;
+}
+
+.day-number {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.day-icon {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.day-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2b3a5a;
+  line-height: 1.3;
+  white-space: pre-line;
 }
 
 @media (max-width: 720px) {
-  .schedule-row {
-    grid-template-columns: 1fr;
+  .weather-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+    .weekday-cell,
+    .day-cell {
+      min-height: 72px;
+      padding: 8px 6px;
   }
 }
