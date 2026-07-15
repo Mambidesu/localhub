@@ -173,7 +173,8 @@ export function usePosts() {
       const key = import.meta.env.VITE_OPENAI_KEY;
       if (!key) throw new Error('OpenAI API key is not configured (VITE_OPENAI_KEY).');
 
-      const buildContext = (items) => (items || []).slice(0, 30).map(i => `${i.title}: ${i.addr || i.overview || ''}`).join('\n');
+      // reduce context size: only include top 10 titles to avoid hitting model token limits
+      const buildContext = (items) => (items || []).slice(0, 10).map(i => `${i.title}`).join('\n');
       const contextParts = [
         '관광지:\n' + buildContext(tourismData.items),
         '레포츠:\n' + buildContext(sportsData.items),
@@ -184,16 +185,18 @@ export function usePosts() {
         '맛집:\n' + buildContext(foodData.items)
       ].join('\n\n');
 
-      const systemPrompt = `당신은 광주·전라권 지역 안내 챗봇입니다. 아래 제공된 데이터(제목과 간단 설명)를 우선 참고하여 질문에 답하세요. 사용 가능한 질의 유형 예: 권역별 관광지 추천, 축제 일정, 모범음식점 위치, 데이트 코스 추천, 커뮤니티 게시글 검색, 특산물 파는 맛집 추천, 이색 숙소 추천. 모르는 내용은 추측하지 말고 "해당 정보가 없습니다"고 알려주세요. 데이터 요약:\n${contextParts}`;
+      const systemPrompt = `당신은 광주·전라권 지역 안내 챗봇입니다. 아래 제공된 데이터(주요 명칭)를 참고하여 간결하게 질문에 답하세요. 가능한 질의 유형 예: 권역별 관광지 추천, 축제 일정, 모범음식점 위치, 데이트 코스 추천, 커뮤니티 게시글 검색, 특산물 판매 맛집 추천, 이색 숙소 추천. 모르는 내용은 추측하지 말고 "해당 정보가 없습니다"라고 말하세요. 데이터 요약:\n${contextParts}`;
 
       const payload = {
-        model: 'gpt-3.5-turbo',
+        model: 'gpt-5-mini',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userText }
         ],
-        max_tokens: 600,
-        temperature: 0.6
+        /* newer models may require max_completion_tokens instead of max_tokens */
+        max_completion_tokens: 600,
+        /* some models only accept temperature=1 (default). set to 1 to avoid unsupported value errors */
+        temperature: 1
       };
 
       const res = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -205,14 +208,22 @@ export function usePosts() {
         body: JSON.stringify(payload)
       });
 
+      // Debug: log status and response body (do NOT log the API key)
+      console.log('OpenAI request sent. Status:', res.status);
+      const resText = await res.text();
+      console.log('OpenAI response body:', resText);
+
       if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(`OpenAI API error: ${res.status} ${errText}`);
+        throw new Error(`OpenAI API error: ${res.status} ${resText}`);
       }
 
-      const data = await res.json();
+      const data = JSON.parse(resText);
       const reply = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
-      return reply || '죄송합니다. 답변을 생성하지 못했습니다.';
+      // If model returned empty content, fallback to local rule-based response
+      if (!reply || !reply.toString().trim()) {
+        return buildTravelRecommendation(userText) + '\n\n(참고: 모델 응답이 비어있어 로컬 데이터 기반 응답을 제공합니다.)';
+      }
+      return reply;
     } catch (e) {
       throw e;
     }
