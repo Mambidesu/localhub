@@ -16,8 +16,6 @@
       </div>
     </header>
 
-    <WeatherModal :visible="isWeatherOpen" @close="isWeatherOpen = false" />
-
     <main class="main-content">
       <RouterView />
     </main>

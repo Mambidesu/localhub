@@ -25,7 +25,6 @@
           </header>
 
           <div class="day-date">
-            <div class="date-display">{{ day.date }}</div>
             <div class="date-picker">
               <select v-model.number="day._year" @change="onDateChange(day)">
                 <option v-for="y in yearsRange()" :key="y" :value="y">{{ y }}</option>
