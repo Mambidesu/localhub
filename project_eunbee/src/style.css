@@ -1,0 +1,732 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  /* 로고 기반 테마 변수 (배경 / 브랜드 색) */
+  --page-bg: #fbf8f3; /* 화면 전체 바탕(로고 바탕색 계열) */
+  --header-bg-start: #fbf8f3;
+  --header-bg-end: #f7f4ee;
+
+  --brand-green: #3b6a3d;
+  --brand-green-dark: #2f6b3a;
+  --accent-orange: #f5a22a;
+  --brand-brown: #2b2318;
+
+  /* 메뉴/버튼 색상 (브랜드 그린 사용) */
+  --menu-bg: var(--brand-green);
+  --menu-bg-hover: #2e8550;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* 헤더 배경을 로고 바탕색 계열로 변경 */
+.app-header {
+  background: linear-gradient(90deg, var(--header-bg-start) 0%, var(--header-bg-end) 100%);
+  color: var(--brand-green-dark);
+  padding: 18px 24px;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.logo-image {
+  width: 140px;
+  height: auto;
+  display: block;
+}
+
+.logo-text {
+  display: none;
+}
+
+nav.menu-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 0;
+}
+
+nav.menu-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* 메뉴 탭을 '내 일정 관리' 버튼 색상과 동일하게 */
+.menu-link {
+  background: var(--menu-bg);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+/* 호버 / 활성 상태 */
+.weather-button {
+  cursor: pointer;
+}
+
+.menu-link:hover,
+.menu-link.active {
+  background: var(--menu-bg-hover);
+  transform: translateY(-1px);
+}
+
+/* '내 여행 일정 관리'와 유사한 탭 스타일 (헤더용) */
+.menu-planner {
+  background: var(--page-bg);
+  color: var(--button-text-green);
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06) inset;
+}
+
+.menu-link.menu-planner:hover,
+.menu-link.menu-planner.active {
+  background: #f2efe9;
+  transform: translateY(-1px);
+}
+
+.main-content {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.page-title {
+  margin: 0 0 14px;
+  font-size: clamp(1.35rem, 2vw, 2rem);
+}
+
+.banner-card {
+  width: 100%;
+  /* 그라데이션은 유지하되 색상은 내 일정 관리 버튼과 비슷한 채도의 더 어두운 그린 계열로 변경 */
+  background: linear-gradient(135deg, var(--banner-start), var(--banner-end));
+  color: white;
+  border-radius: 20px;
+  padding: 36px 30px;
+  display: grid;
+  gap: 18px;
+}
+
+.banner-card h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 2.8vw, 2.8rem);
+}
+
+.banner-card p {
+  margin: 0;
+  line-height: 1.7;
+  opacity: 0.96;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #e4e9f4;
+  box-shadow: 0 12px 30px rgba(17, 35, 77, 0.06);
+  padding: 22px;
+}
+
+.card + .card {
+  margin-top: 20px;
+}
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.list-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+button.primary,
+button.secondary {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  cursor: pointer;
+}
+
+button.primary {
+  /* 배경을 logo.png 바탕색으로 변경, 글씨는 배너보다 더 진한 녹색으로 */
+  background: var(--page-bg);
+  color: var(--button-text-green);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06) inset;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+button.secondary {
+  background: #eef3fb;
+  color: #1f2f52;
+}
+
+.section-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(340px, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 980px) {
+  .section-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.card-list {
+  display: grid;
+  gap: 16px;
+}
+
+.post-item {
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid #dde3ed;
+  display: grid;
+  gap: 8px;
+  background: #fff;
+}
+
+.post-item strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.post-clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.post-clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 18px rgba(17, 35, 77, 0.08);
+}
+
+.post-item .meta {
+  display: flex;
+  justify-content: space-between;
+  color: #71809a;
+  font-size: 0.95rem;
+}
+
+.post-meta {
+  color: #71809a;
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.post-footer {
+  margin-top: 18px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table.post-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.post-table th,
+table.post-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e9eef7;
+}
+
+table.post-table th {
+  color: #55627c;
+  font-size: 0.95rem;
+}
+
+table.post-table tr:hover {
+  background: #f7fafe;
+}
+
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.form-group {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  font-weight: 700;
+}
+
+input[type='text'],
+textarea,
+input[type='password'],
+select {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid #d6dce8;
+  padding: 14px 16px;
+  background: white;
+  resize: vertical;
+}
+
+textarea {
+  min-height: 180px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 25, 60, 0.38);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+
+.modal-panel {
+  width: min(420px, calc(100% - 40px));
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 24px 50px rgba(21, 40, 80, 0.16);
+}
+
+.modal-panel h4 {
+  margin: 0 0 12px;
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.page-button {
+  min-width: 44px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid #dfe6f0;
+  background: white;
+  cursor: pointer;
+}
+
+.page-button.active {
+  background: var(--menu-bg);
+  color: white;
+  border-color: var(--menu-bg);
+}
+
+.chatbot-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 60;
+  display: grid;
+  gap: 12px;
+  align-items: end;
+}
+
+.chatbot-button {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: none;
+  background: var(--menu-bg);
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+}
+
+.chatbot-panel {
+  width: min(380px, calc(100vw - 32px));
+  max-height: min(540px, calc(100vh - 80px));
+  background: white;
+  border-radius: 24px;
+  box-shadow: 0 24px 50px rgba(21, 40, 80, 0.16);
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.chatbot-header {
+  padding: 16px 18px;
+  background: var(--menu-bg);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chatbot-body {
+  padding: 14px;
+  overflow-y: auto;
+  display: grid;
+  gap: 12px;
+  background: #eef4ff;
+}
+
+.chatbot-message {
+  max-width: 82%;
+  padding: 12px 14px;
+  border-radius: 18px;
+  line-height: 1.5;
+}
+
+.chatbot-message.bot {
+  background: white;
+  color: #2a3b5b;
+}
+
+.chatbot-message.user {
+  margin-left: auto;
+  background: #0055a5;
+  color: white;
+}
+
+.chatbot-footer {
+  padding: 14px;
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid #e7edf8;
+}
+
+.chatbot-footer input {
+  flex: 1;
+}
+
+@media (max-width: 720px) {
+  .chatbot-float {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .chatbot-panel {
+    position: fixed;
+    inset: 0;
+    border-radius: 0;
+    max-height: 100vh;
+  }
+}
+
+.trip-card {
+  border-radius: 18px;
+  border: 1px solid #dbe3f0;
+  background: white;
+  padding: 18px;
+}
+
+.weather-planner-card {
+  display: grid;
+  gap: 16px;
+}
+
+.weather-planner-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #eef7ff, #f9fcff);
+}
+
+.weather-planner-summary h3 {
+  margin: 0 0 4px;
+}
+
+.weather-planner-summary p {
+  margin: 0;
+  color: #5e6b84;
+}
+
+.weather-planner-badge {
+  font-size: 2rem;
+}
+
+.weather-mini-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.weather-mini-cell {
+  padding: 8px 6px;
+  border-radius: 12px;
+  background: #f8fbff;
+  border: 1px solid #e2eaf7;
+  text-align: center;
+}
+
+.weather-mini-day {
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.weather-mini-icon {
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+.weather-mini-label {
+  font-size: 0.78rem;
+  color: #5d7089;
+}
+
+.trip-card h4 {
+  margin-top: 0;
+}
+
+.trip-list {
+  display: grid;
+  gap: 14px;
+}
+
+.trip-item {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 16px;
+  background: #f8fbff;
+  border: 1px solid #d8e3f5;
+}
+
+.trip-item header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.trip-item p {
+  margin: 0;
+}
+
+    .example-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .example-chip {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f3f7ff;
+      color: #245897;
+    }
+
+    .day-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .schedule-block {
+      display: grid;
+      gap: 8px;
+      padding: 10px 0;
+      border-top: 1px dashed #dce6f4;
+    }
+
+    .schedule-row {
+      display: grid;
+      grid-template-columns: 90px 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .memo-toggle {
+      font-size: 0.95rem;
+      color: #53657f;
+    }
+
+    .memo-input {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    @media (max-width: 720px) {
+      .schedule-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .weather-modal {
+      width: min(720px, calc(100% - 32px));
+      display: grid;
+      gap: 18px;
+    }
+
+    .weather-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .weather-header h4 {
+      margin: 0 0 4px;
+    }
+
+    .weather-header p {
+      margin: 0;
+      color: #5e6c85;
+    }
+
+    .weather-loading {
+      padding: 20px;
+      border-radius: 16px;
+      background: #f6f9ff;
+      color: #44608a;
+    }
+
+    .weather-summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #eef7ff, #f8fbff);
+    }
+
+.weather-main {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.weather-icon-large {
+  font-size: 2.2rem;
+}
+
+.weather-title {
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.weather-desc {
+  margin: 4px 0 0;
+  color: #5e6c85;
+}
+
+.weather-link {
+  color: #0055a5;
+  font-weight: 700;
+}
+
+.weather-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.weekday-cell,
+.day-cell {
+  border-radius: 12px;
+  padding: 10px 8px;
+  min-height: 80px;
+  text-align: center;
+  background: #f8fbff;
+  border: 1px solid #e3eaf7;
+}
+
+.weekday-cell {
+  min-height: auto;
+  font-weight: 700;
+  background: #eef4ff;
+}
+
+.day-cell.muted {
+  opacity: 0.45;
+}
+
+.day-number {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.day-icon {
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.day-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2b3a5a;
+  line-height: 1.3;
+  white-space: pre-line;
+}
+
+@media (max-width: 720px) {
+  .weather-summary {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+    .weekday-cell,
+    .day-cell {
+      min-height: 72px;
+      padding: 8px 6px;
+  }
+}
