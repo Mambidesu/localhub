@@ -28,46 +28,8 @@ function savePosts(posts) {
 
 const seedPosts = [
   { category: '관광지', title: '충민사 주변 산책 코스', body: '충민사와 주변 골목을 따라 천천히 둘러보면 광주의 정취를 느끼기 좋습니다.', author: '익명', createdAt: '2026-07-10' },
-  { category: '관광지', title: '정엄정려비와 함께하는 역사 여행', body: '역사 유적지를 중심으로 광주의 독립정신을 느낄 수 있는 코스입니다.', author: '익명', createdAt: '2026-07-09' },
-  { category: '관광지', title: '부용정에서 느끼는 여유', body: '산과 강이 어우러진 풍경이 아름다워 조용히 쉬기 좋은 장소입니다.', author: '익명', createdAt: '2026-07-08' },
-  { category: '관광지', title: '양과동정의 조용한 분위기', body: '한적한 분위기와 역사적 의미가 함께 느껴지는 곳입니다.', author: '익명', createdAt: '2026-07-07' },
-  { category: '관광지', title: '무등산 주상절리대 추천', body: '자연과 지질을 함께 즐기고 싶은 분들에게 추천합니다.', author: '익명', createdAt: '2026-07-06' },
-
-  { category: '레포츠', title: '염주실내수영장 가족 나들이', body: '비 오는 날이나 더운 날에도 즐기기 좋은 실내 레포츠 추천입니다.', author: '익명', createdAt: '2026-07-10' },
-  { category: '레포츠', title: '광주-기아 챔피언스 필드 관람 후기', body: '야구 경기를 즐기며 광주 분위기를 만끽할 수 있는 추천 코스입니다.', author: '익명', createdAt: '2026-07-09' },
-  { category: '레포츠', title: '시민의 숲 야영장 추천', body: '캠핑과 산책을 함께 즐기고 싶다면 좋은 선택입니다.', author: '익명', createdAt: '2026-07-08' },
-  { category: '레포츠', title: '휴파크 광산점 액티비티 후기', body: '다양한 실내 체험이 준비돼 있어 친구들과 가기 좋습니다.', author: '익명', createdAt: '2026-07-07' },
-  { category: '레포츠', title: '북구청소년수련관 체험 코스', body: '청소년 활동 프로그램과 다양한 체험이 있어 만족도가 높습니다.', author: '익명', createdAt: '2026-07-06' },
-
-  { category: '문화시설', title: '광주 동구문화원 전시 관람', body: '지역의 역사와 문화를 이해하기 좋은 전시 공간입니다.', author: '익명', createdAt: '2026-07-10' },
-  { category: '문화시설', title: '광주 전통문화관 체험 후기', body: '전통 공예와 체험 프로그램이 다양해 흥미롭습니다.', author: '익명', createdAt: '2026-07-09' },
-  { category: '문화시설', title: '광주시립미술관 데이트 코스', body: '조용한 분위기에서 예술을 감상하기 좋은 장소입니다.', author: '익명', createdAt: '2026-07-08' },
-  { category: '문화시설', title: '광산문화원 프로그램 추천', body: '공연과 전시가 잘 이어져 문화생활을 즐기기 좋습니다.', author: '익명', createdAt: '2026-07-07' },
-  { category: '문화시설', title: '서구문화원 문화행사 후기', body: '지역 문화행사에 관심 있는 분들에게 좋은 정보입니다.', author: '익명', createdAt: '2026-07-06' },
-
-  { category: '쇼핑', title: '서부농수산물도매시장 먹거리 탐방', body: '신선한 먹거리를 저렴하게 즐길 수 있는 곳입니다.', author: '익명', createdAt: '2026-07-10' },
-  { category: '쇼핑', title: '비아5일시장 장보기 코스', body: '식재료와 생활용품을 한 번에 구입하기 좋습니다.', author: '익명', createdAt: '2026-07-09' },
-  { category: '쇼핑', title: '상무화훼단지 구경 후기', body: '꽃과 식물 관련 소품을 구경하기 좋은 추천 장소입니다.', author: '익명', createdAt: '2026-07-08' },
-  { category: '쇼핑', title: '월곡시장 추천 아이템', body: '지역 특산물과 간단한 기념품을 찾기에 좋습니다.', author: '익명', createdAt: '2026-07-07' },
-  { category: '쇼핑', title: '무안요(광주) 쇼핑 후기', body: '가성비 좋은 구매 아이템이 많아 재방문하고 싶은 곳입니다.', author: '익명', createdAt: '2026-07-06' },
-
-  { category: '숙박', title: '도심 근처 가성비 숙소 추천', body: '교통이 편리하고 이동 시간이 적어 일정이 편합니다.', author: '익명', createdAt: '2026-07-10' },
-  { category: '숙박', title: '볼튼호텔 편안한 숙박 후기', body: '편안한 객실과 깔끔한 서비스가 만족스러웠습니다.', author: '익명', createdAt: '2026-07-09' },
-  { category: '숙박', title: '호텔 5월 여름 휴식', body: '시원한 분위기와 여유로운 휴식이 잘 어우러졌습니다.', author: '익명', createdAt: '2026-07-08' },
-  { category: '숙박', title: '탑클라우드호텔 조식과 뷰', body: '뷰와 조식 품질이 좋았던 숙소였습니다.', author: '익명', createdAt: '2026-07-07' },
-  { category: '숙박', title: '산수동 한옥체험 숙박 후기', body: '전통 분위기를 느끼며 쉬기 좋은 특별한 경험이었습니다.', author: '익명', createdAt: '2026-07-06' },
-
-  { category: '여행코스', title: '5.18 역사기행 코스 추천', body: '광주의 역사와 의미를 함께 느끼고 싶다면 이 코스를 추천합니다.', author: '익명', createdAt: '2026-07-10' },
-  { category: '여행코스', title: '호남 유적지 여행 루트', body: '유적지와 자연을 함께 즐기고 싶은 분들에게 적합합니다.', author: '익명', createdAt: '2026-07-09' },
-  { category: '여행코스', title: '녹색의 에너지 체험 코스', body: '공원과 산책 코스를 자연스럽게 연결한 추천 루트입니다.', author: '익명', createdAt: '2026-07-08' },
-  { category: '여행코스', title: '광주하계유니버시아드 경기장 코스', body: '도시의 현대적인 분위기와 스포츠 공간을 함께 즐길 수 있습니다.', author: '익명', createdAt: '2026-07-07' },
-  { category: '여행코스', title: '광주 야경과 유적지 투어', body: '밤에도 매력적인 도시 풍경을 즐기고 싶다면 추천합니다.', author: '익명', createdAt: '2026-07-06' },
-
-  { category: '맛집', title: '송정떡갈비 1호점 후기', body: '맛과 양이 모두 만족스러운 대표적인 광주 음식점입니다.', author: '익명', createdAt: '2026-07-10' },
-  { category: '맛집', title: '제일반점 가성비 추천', body: '친구와 함께 가기 좋은 든든한 한 끼 메뉴가 많습니다.', author: '익명', createdAt: '2026-07-09' },
-  { category: '맛집', title: '금다연한정식 만족 후기', body: '전통적인 한정식 느낌을 즐기고 싶을 때 추천합니다.', author: '익명', createdAt: '2026-07-08' },
-  { category: '맛집', title: '송학한정식 든든한 점심', body: '무난하게 만족을 느끼기 좋은 한식 코스입니다.', author: '익명', createdAt: '2026-07-07' },
-  { category: '맛집', title: '종가집 설렁탕 추천', body: '따뜻하고 편안한 분위기에서 즐기기 좋은 메뉴입니다.', author: '익명', createdAt: '2026-07-06' }
+  { category: '맛집', title: '광주 특산물 파는 맛집 추천', body: '지역 특산물과 함께 즐길 수 있는 메뉴가 인상적인 곳입니다.', author: '익명', createdAt: '2026-07-09' },
+  { category: '숙박', title: '도심 근처 가성비 숙소 추천', body: '교통이 편리해 일정 관리가 쉬운 숙소입니다.', author: '익명', createdAt: '2026-07-08' }
 ];
 
 const persisted = loadPosts();
@@ -76,16 +38,404 @@ const posts = reactive(initialPosts);
 
 const categories = ['관광지', '레포츠', '문화시설', '쇼핑', '숙박', '여행코스', '맛집'];
 
+// Region tokens used to detect user requests about Jeonbuk (전북) and nearby areas
+const REGION_TOKENS = ['전북','전라북도','전라북','전주','군산','익산','정읍','남원','김제','완주','무주','장수','진안','임실','고창','부안','순창'];
+// District tokens for finer-grained location filtering (common city districts)
+const DISTRICT_TOKENS = ['서구','동구','남구','북구','광산구','완산구','덕진구','중구','중앙구'];
+// Category tokens map: map various user keywords to dataset category labels used in getAllDatasetItems
+const CATEGORY_TOKENS = {
+  '관광지': ['관광지','관광'],
+  '레포츠': ['레포츠','레저','스포츠','운동','수영','액티비티'],
+  '문화시설': ['문화시설','문화','전시','공연','박물관','미술관'],
+  '쇼핑': ['쇼핑','쇼핑몰','상점','시장','마트','기념품','백화점'],
+  '숙박': ['숙박','호텔','게스트하우스','숙소','민박'],
+  '여행코스': ['여행코스','코스','일정','루트','데이트','데이트코스','데이트 코스'],
+  '맛집': ['맛집','음식점','식당','먹다','맛있는','밥']
+};
+
+// Tokens indicating a user specifically requests '모범음식점' (exemplary restaurants)
+const EXEMPLARY_TOKENS = ['모범음식점', '모범 업소', '모범업소', '모범', '모범식당', '모범 음식점'];
+
+function isItemExemplary(raw) {
+  if (!raw) return false;
+  const fields = `${raw.title || raw.name || ''} ${raw.overview || raw.addr || raw.addr1 || ''} ${raw.tel || ''}`.toLowerCase();
+  return EXEMPLARY_TOKENS.some(tok => fields.includes(tok));
+}
+
 const state = reactive({
   selectedCategory: '관광지',
   posts,
   categories,
   currentPostId: Math.max(1, ...initialPosts.map(post => Number(post.id || 0))) + 1,
   isChatOpen: false,
-  chatMessages: [
-    { id: 1, author: 'bot', text: '안녕하세요! 무엇을 도와드릴까요?' }
-  ]
+  chatMessages: [{ id: 1, author: 'bot', text: '안녕하세요! 광주·전라권 여행 도와드릴게요. 무엇을 원하시나요?\n\n1. 여행 코스 추천 (자연·문화·레포츠·쇼핑 등)\n2. 맛집 추천(지역별 특산물, 모범음식점 등)\n3. 숙소 추천 (한옥체험·호텔·게스트하우스 등)\n\n원하시는 항목 번호나 가고 싶은 지역(예: 광주 동구, 담양 등)을 알려주시면 맞춤으로 추천해드릴게요.' }]
 });
+
+function buildDatasetContext(userText = '') {
+  const isRegionQuery = REGION_TOKENS.some(tok => userText.includes(tok));
+
+  const datasets = [
+    { label: '관광지', items: tourismData.items || [] },
+    { label: '레포츠', items: sportsData.items || [] },
+    { label: '문화시설', items: cultureData.items || [] },
+    { label: '쇼핑', items: shoppingData.items || [] },
+    { label: '숙박', items: lodgingData.items || [] },
+    { label: '여행코스', items: courseData.items || [] },
+    { label: '맛집', items: foodData.items || [] }
+  ];
+
+  return datasets.map(dataset => {
+    let items = dataset.items || [];
+
+    if (isRegionQuery && Array.isArray(items) && items.length) {
+      const filtered = items.filter(item => {
+        const fields = `${item.title || item.name || ''} ${item.overview || item.addr || ''}`;
+        return REGION_TOKENS.some(tok => fields.includes(tok));
+      });
+      if (filtered.length) items = filtered;
+    }
+
+    const lines = (items || []).slice(0, 12).map(item => {
+      const title = item.title || item.name || '이름 없음';
+      const brief = item.overview || item.addr || '';
+      return `- ${title}${brief ? `: ${brief}` : ''}`;
+    });
+
+    return `${dataset.label}:\n${lines.join('\n') || '- 정보 없음'}`;
+  }).join('\n\n');
+}
+
+function buildBoardContext() {
+  return state.posts.slice(-8).map(post => `- ${post.title}: ${post.body}`).join('\n');
+}
+
+function extractReplyFromData(data) {
+  if (!data) return null;
+  try {
+    // common Chat Completions shape
+    if (data.choices && data.choices.length) {
+      const ch = data.choices[0];
+      if (ch.message && ch.message.content) {
+        if (typeof ch.message.content === 'string') return ch.message.content.trim();
+        // sometimes content can be an array
+        if (Array.isArray(ch.message.content) && ch.message.content[0]) return (ch.message.content[0].text || ch.message.content[0].content || '').toString().trim();
+      }
+      if (ch.text) return ch.text.toString().trim();
+    }
+
+    // common alternative fields
+    if (typeof data.output_text === 'string' && data.output_text.trim()) return data.output_text.trim();
+    if (data.output && Array.isArray(data.output) && data.output[0]?.content) {
+      const content = data.output[0].content;
+      if (Array.isArray(content)) {
+        const first = content.find(c => typeof c.text === 'string' || typeof c === 'string');
+        if (first) return (typeof first === 'string' ? first : first.text || first[0]?.text || '').toString().trim();
+      }
+    }
+  } catch (e) {
+    // ignore extraction errors
+    return null;
+  }
+  return null;
+}
+
+// External search fallback using SerpAPI (requires VITE_SERPAPI_KEY in .env)
+async function searchExternal(query, limit = 5) {
+  const serpKey = import.meta.env.VITE_SERPAPI_KEY;
+  if (!serpKey) return null;
+  try {
+    const url = `https://serpapi.com/search.json?engine=google&q=${encodeURIComponent(query)}&hl=ko&gl=kr&num=${limit}&api_key=${serpKey}`;
+    const res = await fetch(url);
+    const json = await res.json();
+    if (!res.ok) {
+      console.error('SerpAPI error:', json);
+      return null;
+    }
+
+    const organic = json.organic_results || [];
+    const results = organic.slice(0, limit).map(r => {
+      const title = r.title || r.title_no_formatting || '';
+      const snippet = r.snippet || r.description || '';
+      const link = r.link || r.url || '';
+      return `- ${title}${snippet ? `: ${snippet}` : ''}${link ? ` (${link})` : ''}`;
+    });
+
+    if (results.length) return results.join('\n');
+    return null;
+  } catch (e) {
+    console.error('searchExternal error', e);
+    return null;
+  }
+}
+
+// Aggregate dataset items into a normalized list for searching
+function getAllDatasetItems() {
+  const normalize = (item, label) => {
+    const title = item.title || item.name || item.facltNm || '';
+    const brief = item.overview || item.addr1 || item.addr || item.tel || '';
+    return {
+      source: label,
+      title: title,
+      brief: brief,
+      raw: item
+    };
+  };
+
+  const list = [];
+  (foodData.items || []).forEach(i => list.push(normalize(i, '맛집')));
+  (tourismData.items || []).forEach(i => list.push(normalize(i, '관광지')));
+  (sportsData.items || []).forEach(i => list.push(normalize(i, '레포츠')));
+  (cultureData.items || []).forEach(i => list.push(normalize(i, '문화시설')));
+  (shoppingData.items || []).forEach(i => list.push(normalize(i, '쇼핑')));
+  (lodgingData.items || []).forEach(i => list.push(normalize(i, '숙박')));
+  (courseData.items || []).forEach(i => list.push(normalize(i, '여행코스')));
+  return list;
+}
+
+// Find local items matching user text. Check saved `state.posts` first, then datasets.
+function findLocalItems(userText, limit = 5) {
+  if (!userText) return [];
+  const q = userText.toLowerCase();
+  const isExemplaryQuery = EXEMPLARY_TOKENS.some(tok => q.includes(tok));
+  const tokens = q.split(/\s+/).filter(t => t.length > 1);
+  const applyExemplaryFilter = (arr) => {
+    if (!isExemplaryQuery) return arr;
+    const filtered = (arr || []).filter(it => {
+      if (!it) return false;
+      if (typeof it.isExemplary === 'boolean') return it.isExemplary;
+      if (it.raw) return isItemExemplary(it.raw);
+      return false;
+    });
+    return filtered;
+  };
+  // Only check dataset items (do NOT search community posts)
+  const items = getAllDatasetItems();
+  const regionQuery = REGION_TOKENS.some(tok => q.includes(tok));
+
+  // detect requested category from user text (e.g., '쇼핑', '맛집')
+  let requestedCategory = null;
+  for (const [cat, synonyms] of Object.entries(CATEGORY_TOKENS)) {
+    if (synonyms.some(s => q.includes(s))) {
+      requestedCategory = cat;
+      break;
+    }
+  }
+  
+
+  // detect district token (e.g., '서구') for stricter location filtering
+  const districtToken = DISTRICT_TOKENS.find(dt => q.includes(dt));
+  const dtLower = districtToken ? districtToken.toLowerCase() : null;
+
+  // --- PRIORITIZE previously generated/saved posts in memory
+  const generatedPosts = (state.posts || []).filter(p => p.generated);
+  if (generatedPosts.length) {
+    // district filter on generated posts
+    if (districtToken) {
+      const genInDistrict = generatedPosts.filter(p => {
+        const hay = `${p.title} ${p.body || ''} ${p.addr || ''} ${p.category || ''}`.toLowerCase();
+        return hay.includes(dtLower);
+      });
+      if (genInDistrict.length) {
+        if (requestedCategory) {
+          const catGen = genInDistrict.filter(p => p.category === requestedCategory);
+          if (catGen.length) {
+            // score and return
+            const scored = catGen.map(p => {
+              const hay = `${p.title} ${p.body || ''}`.toLowerCase();
+              let score = 0; tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+              return { p, score };
+            }).filter(s => s.score > 0).sort((a,b) => b.score - a.score).slice(0, limit).map(s => ({ title: s.p.title, brief: s.p.body, source: '생성된 항목', raw: s.p, isExemplary: isItemExemplary(s.p) }));
+            const scoredFiltered = applyExemplaryFilter(scored);
+            if (scoredFiltered.length) return scoredFiltered;
+            return applyExemplaryFilter(catGen.slice(0, limit).map(p => ({ title: p.title, brief: p.body, source: '생성된 항목', raw: p, isExemplary: isItemExemplary(p) })));
+          }
+        }
+        // no category match: return top genInDistrict
+        const scored = genInDistrict.map(p => {
+          const hay = `${p.title} ${p.body || ''}`.toLowerCase();
+          let score = 0; tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+          return { p, score };
+        }).filter(s => s.score > 0).sort((a,b) => b.score - a.score).slice(0, limit).map(s => ({ title: s.p.title, brief: s.p.body, source: '생성된 항목', raw: s.p, isExemplary: isItemExemplary(s.p) }));
+        const scoredFiltered2 = applyExemplaryFilter(scored);
+        if (scoredFiltered2.length) return scoredFiltered2;
+        return applyExemplaryFilter(genInDistrict.slice(0, limit).map(p => ({ title: p.title, brief: p.body, source: '생성된 항목', raw: p, isExemplary: isItemExemplary(p) })));
+      }
+    }
+
+    // category-only match on generated posts
+    if (requestedCategory) {
+      const catGen = generatedPosts.filter(p => p.category === requestedCategory);
+      if (catGen.length) {
+        const scored = catGen.map(p => {
+          const hay = `${p.title} ${p.body || ''}`.toLowerCase();
+          let score = 0; tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+          if (regionQuery && REGION_TOKENS.some(rt => hay.includes(rt))) score += 5;
+          return { p, score };
+        }).filter(s => s.score > 0).sort((a,b) => b.score - a.score).slice(0, limit).map(s => ({ title: s.p.title, brief: s.p.body, source: '생성된 항목', raw: s.p, isExemplary: isItemExemplary(s.p) }));
+        if (scored.length) return applyExemplaryFilter(scored);
+        return applyExemplaryFilter(catGen.slice(0, limit).map(p => ({ title: p.title, brief: p.body, source: '생성된 항목', raw: p, isExemplary: isItemExemplary(p) })));
+      }
+    }
+
+    // general scoring on generated posts
+    const genScored = generatedPosts.map(p => {
+      const hay = `${p.title} ${p.body || ''}`.toLowerCase();
+      let score = 0; tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+      if (regionQuery && REGION_TOKENS.some(rt => hay.includes(rt))) score += 5;
+      if (requestedCategory && p.category === requestedCategory) score += 4;
+      return { p, score };
+    }).filter(s => s.score > 0).sort((a,b) => b.score - a.score).slice(0, limit).map(s => ({ title: s.p.title, brief: s.p.body, source: '생성된 항목', raw: s.p, isExemplary: isItemExemplary(s.p) }));
+    const genScoredFiltered = applyExemplaryFilter(genScored);
+    if (genScoredFiltered.length) return genScoredFiltered;
+  }
+
+  if (districtToken) {
+    // filter items that explicitly mention the district in title/brief/address
+    const itemsInDistrict = items.filter(it => {
+      const rawText = it.raw ? (it.raw.addr1 || it.raw.addr || JSON.stringify(it.raw)) : '';
+      const hay = `${it.title} ${it.brief} ${rawText}`.toLowerCase();
+      return hay.includes(dtLower);
+    });
+
+    if (itemsInDistrict.length) {
+      // if category requested, prefer that category within district
+      if (requestedCategory) {
+        const catInDistrict = itemsInDistrict.filter(it => it.source === requestedCategory);
+        if (catInDistrict.length) {
+          // score and return category results within district
+          const scoredCat = catInDistrict.map(it => {
+            const hay = `${it.title} ${it.brief}`.toLowerCase();
+            let score = 0;
+            tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+            return { it, score };
+          }).filter(s => s.score > 0)
+            .sort((a, b) => b.score - a.score)
+            .slice(0, limit)
+            .map(s => ({ title: s.it.title, brief: s.it.brief, source: s.it.source, raw: s.it.raw, isExemplary: isItemExemplary(s.it.raw) }));
+          if (scoredCat.length) return applyExemplaryFilter(scoredCat);
+          return catInDistrict.slice(0, limit).map(it => ({ title: it.title, brief: it.brief, source: it.source, raw: it.raw, isExemplary: isItemExemplary(it) }));
+        }
+      }
+
+      // no category or no category match within district: return top items in district
+      const scoredDistrict = itemsInDistrict.map(it => {
+        const hay = `${it.title} ${it.brief}`.toLowerCase();
+        let score = 0;
+        tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+        return { it, score };
+      }).filter(s => s.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map(s => ({ title: s.it.title, brief: s.it.brief, source: s.it.source, raw: s.it.raw, isExemplary: isItemExemplary(s.it.raw) }));
+
+      if (scoredDistrict.length) return applyExemplaryFilter(scoredDistrict);
+      return applyExemplaryFilter(itemsInDistrict.slice(0, limit).map(it => ({ title: it.title, brief: it.brief, source: it.source, raw: it.raw, isExemplary: isItemExemplary(it) })));
+    }
+    // if district requested but no items found in district, continue to fallback logic
+  }
+
+  // If a specific category is requested, prefer items from that category first
+  if (requestedCategory) {
+    const categoryItems = items.filter(it => it.source === requestedCategory);
+    if (categoryItems.length) {
+      const scoredCat = categoryItems.map(it => {
+        const hay = `${it.title} ${it.brief}`.toLowerCase();
+        let score = 0;
+        tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+        if (regionQuery && REGION_TOKENS.some(tok => hay.includes(tok))) score += 5;
+        return { it, score };
+      }).filter(s => s.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map(s => ({ title: s.it.title, brief: s.it.brief, source: s.it.source, raw: s.it.raw, isExemplary: isItemExemplary(s.it.raw) }));
+
+      // If we found scored items in the category, return them; otherwise return top category items
+      if (scoredCat.length) return applyExemplaryFilter(scoredCat);
+      return categoryItems.slice(0, limit).map(it => ({ title: it.title, brief: it.brief, source: it.source, raw: it.raw, isExemplary: isItemExemplary(it) }));
+    }
+    // else fall through to general scoring with category boost
+  }
+
+  // General scoring across all items, with boost for requested category if any
+  const scored = items.map(it => {
+    const hay = `${it.title} ${it.brief}`.toLowerCase();
+    let score = 0;
+    tokens.forEach(tok => { if (hay.includes(tok)) score += 2; });
+    if (regionQuery && REGION_TOKENS.some(tok => hay.includes(tok))) score += 5;
+    if (requestedCategory && it.source === requestedCategory) score += 4;
+    return { it, score };
+  }).filter(s => s.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(s => ({ title: s.it.title, brief: s.it.brief, source: s.it.source, raw: s.it.raw, isExemplary: isItemExemplary(s.it.raw) }));
+
+  return scored;
+}
+
+// Parse JSON block from model-generated text
+function parseGeneratedJSON(text) {
+  if (!text || typeof text !== 'string') return null;
+  // try fenced json block first
+  const fenced = /```json\s*([\s\S]*?)```/i.exec(text);
+  const objText = fenced ? fenced[1] : (text.match(/\{[\s\S]*\}/) || [null])[0];
+  if (!objText) return null;
+  try {
+    const parsed = JSON.parse(objText);
+    return parsed;
+  } catch (e) {
+    // try to repair common mistakes (single quotes -> double)
+    try {
+      const repaired = objText.replace(/'/g, '"');
+      return JSON.parse(repaired);
+    } catch (e2) {
+      console.warn('parseGeneratedJSON failed', e2);
+      return null;
+    }
+  }
+}
+
+// Save generated post to server if VITE_SERVER_API_URL provided, else return null
+async function savePostToServer(post) {
+  const base = import.meta.env.VITE_SERVER_API_URL || import.meta.env.VITE_API_URL || '';
+  if (!base) return null;
+  try {
+    const url = base.replace(/\/$/, '') + '/posts';
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(post)
+    });
+    const json = await res.json();
+    if (!res.ok) throw new Error(json.message || 'server save failed');
+    return json;
+  } catch (e) {
+    console.error('savePostToServer error', e);
+    return null;
+  }
+}
+
+function buildPrompt(userText, historyMessages) {
+  const localContext = buildDatasetContext(userText);
+  // don't include the phrase '로컬 데이터' in prompts or answers; use '제공된 데이터' instead
+  // Note: do not include community posts in the search logic; only use provided dataset JSON files.
+  const boardContext = '';
+  return `당신은 광주·전라권 여행 안내 챗봇입니다. 가능한 경우 제공된 데이터(프로젝트 내 JSON 파일)를 근거로 답하세요. 만약 사용자가 요청한 지역(예: 전북)에 대한 관련 정보가 제공된 데이터에 없으면 OpenAI의 일반 지식을 사용하여 답변해도 됩니다. 답변에 '로컬 데이터'라는 표현은 포함하지 마세요.
+- 답변은 간결하고 실용적으로 작성하세요.
+- 숫자 목록으로 정리하면 보기 좋게 답하세요.
+- 모르는 정보는 추측하지 말고 "해당 정보가 없습니다"라고 말하세요.
+- 주요 질의 유형: 관광지 추천, 축제 또는 행사 일정, 맛집/특산물 파는 곳, 데이트 코스, 숙소 추천, 커뮤니티 게시글 검색.
+
+최근 대화:
+${historyMessages.map(item => `${item.role === 'user' ? '사용자' : '도우미'}: ${item.content}`).join('\n') || '없음'}
+
+
+제공 데이터:
+${localContext}
+
+
+사용자 질문:
+${userText}`;
+}
 
 export function usePosts() {
   const recentPosts = computed(() => {
@@ -98,65 +448,6 @@ export function usePosts() {
       .slice(0, 5);
   });
 
-  // Helper maps for category keyword detection
-  const categoryKeywordsMap = {
-    '관광지': ['관광', '관광지', '명소', '여행지', '가볼만한곳'],
-    '레포츠': ['레포츠', '액티비티', '캠핑', '체험'],
-    '문화시설': ['문화', '전시', '공연', '문화시설'],
-    '쇼핑': ['쇼핑', '시장', '구매', '기념품'],
-    '숙박': ['숙박', '호텔', '게스트하우스', '숙소'],
-    '여행코스': ['코스', '여행코스', '루트', '일정'],
-    '맛집': ['맛집', '음식', '식당', '먹거리']
-  };
-
-  const datasetMap = {
-    '관광지': tourismData,
-    '레포츠': sportsData,
-    '문화시설': cultureData,
-    '쇼핑': shoppingData,
-    '숙박': lodgingData,
-    '여행코스': courseData,
-    '맛집': foodData
-  };
-
-  function detectCategory(text) {
-    const lower = text.toLowerCase();
-    for (const [cat, keys] of Object.entries(categoryKeywordsMap)) {
-      if (keys.some(k => lower.includes(k))) return cat;
-    }
-    return null;
-  }
-
-  function isBoardQuery(text) {
-    const lower = text.toLowerCase();
-    return ['게시판', '게시글', '글', '포스트', '게시물', '검색'].some(k => lower.includes(k));
-  }
-
-  // Generate a natural language reply from local JSON dataset for a given category
-  function generateLocalReply(text, category) {
-    const dataset = datasetMap[category];
-    if (!dataset || !dataset.items || dataset.items.length === 0) return null;
-
-    // Try to find items that match keywords in the question
-    const lower = text.toLowerCase();
-    const matches = dataset.items.filter(it => {
-      const combined = ((it.title || '') + ' ' + (it.overview || '') + ' ' + (it.addr || '')).toLowerCase();
-      return lower.split(/\s+/).some(tok => tok && combined.includes(tok));
-    });
-
-    const pick = (matches.length ? matches : dataset.items).slice(0, 5);
-
-    // Build a friendly natural-language response
-    const lines = [];
-    lines.push(`${category} 관련 추천을 알려드릴게요:`);
-    pick.forEach((it, idx) => {
-      const title = it.title || it.name || `항목 ${idx+1}`;
-      const brief = it.overview || it.addr || '';
-      lines.push(`${idx+1}. ${title}${brief ? ' — ' + brief.slice(0, 80) : ''}`);
-    });
-    lines.push('더 원하시면 지역이나 테마(예: 가족, 데이트, 가성비 등)를 알려주세요.');
-    return lines.join('\n');
-  }
   const categoryPosts = computed(() => {
     return [...state.posts]
       .filter(post => post.category === state.selectedCategory)
@@ -206,214 +497,177 @@ export function usePosts() {
   }
 
   async function sendChatMessage(text) {
-    state.chatMessages.push({ id: Date.now(), author: 'user', text });
+    const trimmed = text.trim();
+    if (!trimmed) return;
 
-    // show typing indicator
+    const userId = Date.now();
+    state.chatMessages.push({ id: userId, author: 'user', text: trimmed });
+
     const typingId = Date.now() + 1;
     state.chatMessages.push({ id: typingId, author: 'bot', text: '응답 생성 중입니다...' });
 
-    // Pre-process: if question targets a local category or board, provide that context to the model
-    const category = detectCategory(text);
-    const isBoard = isBoardQuery(text);
+    const historyMessages = state.chatMessages
+      .filter(message => message.id !== typingId && message.id !== userId)
+      .slice(-8)
+      .map(message => ({
+        role: message.author === 'user' ? 'user' : 'assistant',
+        content: message.text
+      }));
 
-    if (category) {
-      // First, generate a local reply from JSON data and return it immediately
-      const localReply = generateLocalReply(text, category);
-      if (localReply) {
-        const idx = state.chatMessages.findIndex(m => m.id === typingId);
-        if (idx !== -1) state.chatMessages.splice(idx, 1);
-        state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: localReply });
-        return;
-      }
-
-      // If no local data, try to augment with web search results from server proxy and call OpenAI
-      const dataset = datasetMap[category];
-      const items = (dataset && dataset.items) ? dataset.items.slice(0, 10).map(i => i.title) : [];
-      // Try to augment with web search results from server proxy
-      let webResults = [];
-      try {
-        const resp = await fetch('/api/search', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ q: `${category} ${text}`, num: 5 }) });
-        if (resp.ok) {
-          const j = await resp.json();
-          const results = j.results || [];
-          webResults = results.map(r => ({ title: r.title, snippet: r.snippet, link: r.link, domain: r.domain, rank: r.rank }));
-          // create a readable searchList for system prompt
-          // format: 1) title (domain) - snippet - link
-        }
-      } catch (e) {
-        console.warn('Search proxy failed', e);
-      }
-
-      const contextList = items.join(', ');
-      const searchList = (webResults || []).map(r => `${r.rank}. ${r.title} (${r.domain}) - ${r.snippet} ${r.link || ''}`).join('\n');
-      const system = `당신은 광주·전라권 안내 챗봇입니다. 사용자가 ${category} 관련 질의를 했습니다. 아래는 앱 내부 ${category} 목록(간단): ${contextList}. 추가로 웹에서 관련 정보(스니펫)를 참고하세요:\n${searchList}\n위 정보들을 참고해 질문에 맞는 추천을 간결하게 작성해주세요.`;
-      callOpenAI(text, system)
-        .then(answer => {
-          const idx = state.chatMessages.findIndex(m => m.id === typingId);
-          if (idx !== -1) state.chatMessages.splice(idx, 1);
-          state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: answer });
-        })
-        .catch(err => {
-          const idx = state.chatMessages.findIndex(m => m.id === typingId);
-          if (idx !== -1) state.chatMessages.splice(idx, 1);
-          const fallback = buildTravelRecommendation(text) + '\n\n(참고: OpenAI 호출에 실패해 로컬 데이터 기반 응답을 제공합니다.)';
-          state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: fallback });
-          console.error('OpenAI error:', err);
-        });
-      return;
-    }
-
-    if (isBoard) {
-      const postsSample = state.posts.slice(-10).map(p => `${p.title}: ${p.body.slice(0,60)}`).join('\n');
-      const system = `당신은 커뮤니티 게시글 검색 챗봇입니다. 아래는 최근 게시글(제목:요약)입니다:\n${postsSample}\n사용자의 질문에 맞춰 관련 게시글을 요약하거나 안내해 주세요.`;
-      callOpenAI(text, system)
-        .then(answer => {
-          const idx = state.chatMessages.findIndex(m => m.id === typingId);
-          if (idx !== -1) state.chatMessages.splice(idx, 1);
-          state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: answer });
-        })
-        .catch(err => {
-          const idx = state.chatMessages.findIndex(m => m.id === typingId);
-          if (idx !== -1) state.chatMessages.splice(idx, 1);
-          const fallback = '해당 게시글을 찾지 못했습니다. 게시글 제목 또는 키워드를 알려주시면 검색해 드릴게요.';
-          state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: fallback });
-          console.error('OpenAI error:', err);
-        });
-      return;
-    }
-
-    // Default: call OpenAI normally
-    callOpenAI(text)
-      .then(answer => {
-        const idx = state.chatMessages.findIndex(m => m.id === typingId);
-        if (idx !== -1) state.chatMessages.splice(idx, 1);
-        state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: answer });
-      })
-      .catch(err => {
-        const idx = state.chatMessages.findIndex(m => m.id === typingId);
-        if (idx !== -1) state.chatMessages.splice(idx, 1);
-        const fallback = `제가 이해하기 어려워요. 예: 관광지·맛집·숙박·여행코스 중 무엇을 찾으시나요?`;
-        state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: fallback });
-        console.error('OpenAI error:', err);
+    // 1) Try to find matching local items first (saved posts or datasets)
+    const localMatches = findLocalItems(trimmed, 5);
+    if (localMatches && localMatches.length) {
+      const lines = localMatches.map((it, i) => {
+        const mark = it.isExemplary ? ' (모범: 확인됨)' : '';
+        return `${i + 1}. ${it.title}${it.brief ? ` — ${it.brief}` : ''}${mark}`;
       });
-  }
+      const replyText = `다음 항목을 찾았습니다:\n${lines.join('\n')}`;
+      const idx = state.chatMessages.findIndex(message => message.id === typingId);
+      if (idx !== -1) state.chatMessages.splice(idx, 1);
+      state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: replyText });
+      return;
+    }
 
-  async function callOpenAI(userText, systemOverride = null) {
+    // build local context and allow OpenAI general-knowledge fallback when local data missing
+    const localContext = buildDatasetContext(trimmed);
+    const isRegionQuery = REGION_TOKENS.some(tok => trimmed.includes(tok));
+    const localHasRegion = REGION_TOKENS.some(tok => localContext.includes(tok));
+    let externalContext = '';
+    if (isRegionQuery && !localHasRegion) {
+      externalContext = '\n\n제공된 데이터에 관련 정보가 없습니다. 일반 지식을 사용하여 답변하되, 답변에 "로컬 데이터"라는 표현을 포함하지 마세요.';
+    }
+
+    const baseSystem = buildPrompt(trimmed, historyMessages) + externalContext;
+    const generationInstruction = '\n\n만약 제공된 데이터에 없어서 새로운 장소/맛집 항목을 생성해야 한다면, 먼저 사람이 읽기 쉬운 한국어 응답을 작성한 뒤, 마지막에 정확한 JSON 객체를 ```json ... ``` 코드블록으로 출력하세요. JSON 스키마는 { "title": string, "category": string, "body": string, "addr": string (선택), "tel": string (선택), "author": string (선택), "createdAt": string (선택) } 입니다. JSON은 기계가 파싱할 수 있도록 정확한 JSON 형식을 사용하세요.';
+    const systemPrompt = baseSystem + generationInstruction;
+    const apiKey = import.meta.env.VITE_OPENAI_KEY;
+
+    if (!apiKey) {
+      const idx = state.chatMessages.findIndex(message => message.id === typingId);
+      if (idx !== -1) state.chatMessages.splice(idx, 1);
+      state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: 'OpenAI API 키가 설정되지 않았습니다. .env 파일에 VITE_OPENAI_KEY를 입력한 뒤 다시 시도해 주세요.' });
+      return;
+    }
+
     try {
-      const key = import.meta.env.VITE_OPENAI_KEY;
-      if (!key) throw new Error('OpenAI API key is not configured (VITE_OPENAI_KEY).');
-
-      // reduce context size: only include top 10 titles to avoid hitting model token limits
-      const buildContext = (items) => (items || []).slice(0, 10).map(i => `${i.title}`).join('\n');
-      const contextParts = [
-        '관광지:\n' + buildContext(tourismData.items),
-        '레포츠:\n' + buildContext(sportsData.items),
-        '문화시설:\n' + buildContext(cultureData.items),
-        '쇼핑:\n' + buildContext(shoppingData.items),
-        '숙박:\n' + buildContext(lodgingData.items),
-        '여행코스:\n' + buildContext(courseData.items),
-        '맛집:\n' + buildContext(foodData.items)
-      ].join('\n\n');
-
-
-      const defaultSystemPrompt = `당신은 광주·전라권 지역 안내 챗봇입니다. 아래 제공된 데이터(주요 명칭)를 참고하여 간결하게 질문에 답하세요. 가능한 질의 유형 예: 권역별 관광지 추천, 축제 일정, 모범음식점 위치, 데이트 코스 추천, 커뮤니티 게시글 검색, 특산물 판매 맛집 추천, 이색 숙소 추천. 모르는 내용은 추측하지 말고 "해당 정보가 없습니다"라고 말하세요. 데이터 요약:\n${contextParts}`;
-      const systemPrompt = systemOverride || defaultSystemPrompt;
-
-      const payload = {
-        model: 'gpt-5-mini',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userText }
-        ],
-        /* newer models may require max_completion_tokens instead of max_tokens */
-        max_completion_tokens: 600,
-        /* some models only accept temperature=1 (default). set to 1 to avoid unsupported value errors */
-        temperature: 1
-      };
-
-      const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      console.log('SYSTEM PROMPT:', systemPrompt);
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${key}`
+          Authorization: `Bearer ${apiKey}`
         },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          model: 'gpt-5-mini',
+          messages: [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: trimmed }
+            ],
+            max_completion_tokens: 500
+        })
       });
 
-      // Debug: log status and response body (do NOT log the API key)
-      console.log('OpenAI request sent. Status:', res.status);
-      const resText = await res.text();
-      console.log('OpenAI response body:', resText);
-
-      if (!res.ok) {
-        throw new Error(`OpenAI API error: ${res.status} ${resText}`);
+      const data = await response.json();
+      console.log('OpenAI response raw:', data);
+      if (!response.ok) {
+        throw new Error(data.error?.message || 'OpenAI 요청에 실패했습니다.');
       }
 
-      const data = JSON.parse(resText);
-      let reply = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+      const extracted = extractReplyFromData(data) || '';
+      console.log('Extracted full text from model:', extracted);
 
-      // If model returned empty content, try one formatted retry with stricter instruction
-      if (!reply || !reply.toString().trim()) {
-        console.warn('Empty reply, attempting one formatted retry');
-        const retrySystem = systemOverride || (`당신은 광주·전라권 안내 챗봇입니다. 아래 제공된 데이터와 웹 스니펫을 참고해, 요청에 대해 최대 5개의 항목을 "번호. 이름 — 한 줄 설명" 형식으로 간결하게 출력하세요. 예외적인 정보는 추측하지 말고 "해당 정보가 없습니다"라고 적으세요.`);
-        const retryPayload = {
-          model: payload.model,
-          messages: [
-            { role: 'system', content: retrySystem },
-            { role: 'user', content: userText }
-          ],
-          max_completion_tokens: 300,
-          temperature: 1
-        };
-        const r2 = await fetch('https://api.openai.com/v1/chat/completions', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${key}`
-          },
-          body: JSON.stringify(retryPayload)
-        });
-        console.log('Retry OpenAI request sent. Status:', r2.status);
-        const r2Text = await r2.text();
-        console.log('Retry OpenAI response body:', r2Text);
-        if (r2.ok) {
-          const r2Data = JSON.parse(r2Text);
-          reply = r2Data.choices && r2Data.choices[0] && r2Data.choices[0].message && r2Data.choices[0].message.content;
+      // Try to parse a JSON object from the model output (if model provided structured item)
+      const parsedObj = parseGeneratedJSON(extracted);
+
+      // Determine human-readable answer (strip JSON block if present)
+      let humanAnswer = extracted;
+      if (parsedObj) {
+        humanAnswer = humanAnswer.replace(/```json[\s\S]*?```/i, '').replace(/\{[\s\S]*\}\s*$/i, '').trim();
+        if (!humanAnswer) {
+          // fallback: use parsed body or title for reply
+          humanAnswer = parsedObj.body || parsedObj.title || '(AI가 생성한 항목을 추가했습니다.)';
         }
       }
 
-      // Final fallback to local response if still empty
-      if (!reply || !reply.toString().trim()) {
-        return buildTravelRecommendation(userText) + '\n\n(참고: 모델 응답이 비어 있어 로컬 데이터 기반 응답을 제공합니다.)';
+      // If we have a parsed structured object, attempt to save it
+      let finalParsed = parsedObj;
+      if (!finalParsed) {
+        // Ask the model to convert the provided answer into the JSON schema only
+        try {
+          const extractorSystem = '다음 텍스트를 아래 스키마에 맞는 정확한 JSON으로 변환하세요. 출력은 순수 JSON이어야 합니다: { "title": string, "category": string, "body": string, "addr": string (선택), "tel": string (선택), "author": string (선택), "createdAt": string (선택) }';
+          const resp2 = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+              model: 'gpt-5-mini',
+              messages: [
+                { role: 'system', content: extractorSystem },
+                { role: 'user', content: extracted }
+              ],
+              max_completion_tokens: 500
+            })
+          });
+          const data2 = await resp2.json();
+          const extracted2 = extractReplyFromData(data2) || '';
+          finalParsed = parseGeneratedJSON(extracted2);
+          console.log('Extractor response parsed JSON:', finalParsed);
+        } catch (e) {
+          console.warn('JSON extractor failed', e);
+          finalParsed = null;
+        }
       }
 
-      return reply;
-    } catch (e) {
-      throw e;
+      if (finalParsed && typeof finalParsed === 'object') {
+        // Only save if the parsed object contains a sensible title/name.
+        const titleValue = (finalParsed.title || finalParsed.name || '').toString().trim();
+        if (titleValue) {
+          const newPost = {
+            category: finalParsed.category || parsedObj?.category || '맛집',
+            title: titleValue,
+            body: finalParsed.body || finalParsed.description || humanAnswer,
+            addr: finalParsed.addr || finalParsed.address || '',
+            tel: finalParsed.tel || '',
+            author: finalParsed.author || 'AI',
+            generated: true,
+            createdAt: finalParsed.createdAt || new Date().toISOString().slice(0, 10)
+          };
+
+          const serverResp = await savePostToServer(newPost);
+          if (serverResp && serverResp.id) {
+            // Use server-provided id if available
+            const saved = { ...newPost, id: serverResp.id };
+            state.posts.push(saved);
+            savePosts(state.posts);
+            console.log('Saved generated post to server:', serverResp);
+          } else {
+            // fallback: save locally
+            addPost(newPost);
+            console.log('Saved generated post locally');
+          }
+        } else {
+          console.log('Parsed object had no title; skipping auto-save to posts. Parsed:', finalParsed);
+        }
+      }
+
+      // Ensure we always send a human-readable fallback if model output was empty
+      if (!humanAnswer || !humanAnswer.toString().trim()) {
+        humanAnswer = '질문을 이해하지 못했습니다. 조금 더 구체적으로 말씀해 주세요.';
+      }
+
+      const idx = state.chatMessages.findIndex(message => message.id === typingId);
+      if (idx !== -1) state.chatMessages.splice(idx, 1);
+      state.chatMessages.push({ id: Date.now() + 2, author: 'bot', text: humanAnswer });
+    } catch (error) {
+      const idx = state.chatMessages.findIndex(message => message.id === typingId);
+      if (idx !== -1) state.chatMessages.splice(idx, 1);
+      // surface known error messages when possible
+      const errMsg = error?.message || '응답 생성 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+      state.chatMessages.push({ id: Date.now() + 3, author: 'bot', text: errMsg });
+      console.error('OpenAI chat error:', error);
     }
-  }
-
-  function buildTravelRecommendation(text) {
-    const lowerText = text.toLowerCase();
-    const datasets = [
-      { keyword: ['관광', '관광지', '명소', '여행지', '가볼만한곳'], items: tourismData.items },
-      { keyword: ['레포츠', '액티비티', '운동', '체험'], items: sportsData.items },
-      { keyword: ['문화', '전시', '공연', '문화시설'], items: cultureData.items },
-      { keyword: ['쇼핑', '시장', '상점', '구매'], items: shoppingData.items },
-      { keyword: ['숙박', '호텔', '게스트하우스', '숙소'], items: lodgingData.items },
-      { keyword: ['코스', '여행코스', '루트', '일정'], items: courseData.items },
-      { keyword: ['맛집', '음식', '식당', '먹거리'], items: foodData.items }
-    ];
-
-    const matched = datasets.find(dataset => dataset.keyword.some(keyword => lowerText.includes(keyword)));
-    const items = matched?.items || tourismData.items;
-    const sampleItems = items.slice(0, 3).map(item => item.title).join(', ');
-
-    if (lowerText.includes('추천') || lowerText.includes('가르쳐') || lowerText.includes('어디')) {
-      return `광주·전라권 데이터 기준으로 추천해드리면: ${sampleItems} 정도를 먼저 고려해보세요. 더 구체적으로 원하시면 “맛집 추천”, “숙박 추천”, “가족 여행지 추천”처럼 말해 주세요.`;
-    }
-
-    return `광주·전라권 데이터를 참고해 보니 ${sampleItems} 같은 곳이 눈에 띕니다. 원하시는 테마를 더 알려주시면 더 맞춤형으로 추천해 드릴게요.`;
   }
 
   function toggleChat() {

@@ -12,7 +12,6 @@
           <RouterLink v-for="item in topMenu" :key="item.label" :to="item.to" class="menu-link" :class="{ active: item.active }">
             {{ item.label }}
           </RouterLink>
-          <button class="menu-link weather-button" @click="isWeatherOpen = true">🌤️ 날씨</button>
         </nav>
       </div>
     </header>
@@ -28,13 +27,11 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import ChatbotWidget from './components/ChatbotWidget.vue';
-import WeatherModal from './components/WeatherModal.vue';
 
 const route = useRoute();
-const isWeatherOpen = ref(false);
 
 const topMenu = computed(() => [
   { label: '관광지', to: '/board/관광지', active: route.params.category === '관광지' && route.name === 'board-list' },

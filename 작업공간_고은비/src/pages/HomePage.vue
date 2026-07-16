@@ -7,14 +7,18 @@
         <div>
           <strong>주요 기능</strong>
         </div>
-        <button class="primary" @click="goPlanner">내 여행 일정 관리</button>
+        <div class="banner-actions">
+          <button class="primary weather-inline" @click="isWeatherOpen = true">🌤️ 날씨 확인</button>
+          <button class="primary" @click="goPlanner">내 여행 일정 관리</button>
+        </div>
       </div>
     </div>
+    <WeatherModal :visible="isWeatherOpen" @close="isWeatherOpen = false" />
 
     <div class="card">
       <div class="list-header">
         <h3>최근 게시글</h3>
-        <button class="secondary" @click="goBoard('관광지')">게시판 전체 보기</button>
+        <button class="secondary" @click="goBoard('관광지')">게시판 둘러보기</button>
       </div>
       <div class="card-list">
         <article v-for="post in recentPosts" :key="post.id" class="post-item post-clickable" @click="goPost(post)">
@@ -31,8 +35,12 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { usePosts } from '../stores/usePosts';
+import WeatherModal from '../components/WeatherModal.vue';
+
+const isWeatherOpen = ref(false);
 
 const { recentPosts } = usePosts();
 const router = useRouter();

@@ -7,7 +7,7 @@
 
     <div v-else class="chatbot-panel">
       <div class="chatbot-header">
-        <span class="chatbot-title">가야Ging 챗봇</span>
+        <span class="chatbot-title">여행 가이드 쥐피티</span>
         <button @click="toggleChat" class="chatbot-close" aria-label="챗봇 닫기">✕</button>
       </div>
           <div class="chatbot-body" ref="bodyRef">
@@ -16,7 +16,7 @@
             </div>
           </div>
       <div class="chatbot-footer">
-        <input type="text" v-model="draft" placeholder="메시지를 입력하세요" @keyup.enter="sendMessage" />
+        <input type="text" v-model="draft" placeholder="메시지를 입력하세요" @keydown.enter.prevent="sendMessage" />
         <button @click="sendMessage" class="primary">전송</button>
       </div>
     </div>
@@ -135,10 +135,12 @@ function sendMessage() {
 .chatbot-body {
   max-height: 260px;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  scroll-behavior: smooth;
 }
 
 .chatbot-message.user {
@@ -160,6 +162,22 @@ function sendMessage() {
 
 .chatbot-message {
   white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 480px) {
+  .chatbot-float {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .chatbot-panel {
+    width: min(92vw, 360px);
+  }
+
+  .chatbot-body {
+    max-height: 240px;
+  }
 }
 
 .chatbot-footer {
