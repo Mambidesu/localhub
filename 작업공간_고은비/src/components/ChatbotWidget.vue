@@ -158,6 +158,10 @@ function sendMessage() {
   max-width: 86%;
 }
 
+.chatbot-message {
+  white-space: pre-wrap;
+}
+
 .chatbot-footer {
   display: flex;
   gap: 8px;
